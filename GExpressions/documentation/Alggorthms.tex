@@ -1,0 +1,115 @@
+% ----------------------------------------------------------------
+% AMS-LaTeX Paper ************************************************
+% **** -----------------------------------------------------------
+% documentclass[fleqn]{report}
+\documentclass[a4paper,fleqn]{article}
+% \documentclass[a4paper,fleqn]{scrreprt}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+\setlength{\textwidth}{15.0cm}
+\setlength{\paperwidth}{210mm}
+\setlength{\paperheight}{297mm}
+\usepackage{graphicx} 
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{alltt}
+\usepackage{color}
+\usepackage{fancyvrb}
+%\usepackage{hyperref}
+
+\newcounter{thm}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Hilfssatz}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+
+\newenvironment{proof}[1][Beweis]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newcommand*\codeRed[1]{\textcolor[rgb]{1,0,0}{\textbf{#1}}}
+\newcommand*\codeGreen[1]{\textcolor[rgb]{0,0.5,0}{\textbf{#1}}}
+\newcommand{\lb}{[}
+\newcommand{\rb}{]}
+\newcommand{\codeCall}[1]{\textbf{\texttt{#1}}}
+\newcommand{\mcL}{\mathcal{L}}
+%\newenvironment{\vspace{1ex}\noindent{\bf Proof}\hspace{0.5em}}
+%	{\hfill\qed\vspace{1ex}}
+ 
+
+\newenvironment{example}[1][Example]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{remark}[1][Remark]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\newcommand{\qed}{\nobreak \ifvmode \relax \else
+      \ifdim\lastskip<1.5em \hskip-\lastskip
+      \hskip1.5em plus0em minus0.5em \fi \nobreak
+      \vrule height0.75em width0.5em depth0.25em\fi}
+
+\newcommand{\qt}{\texttt}
+
+\newcommand{\bibdef}[4]{\bibitem{#1} {\bf #2:} {\it #3}\\#4}
+
+\newcommand{\eeeccc}{\end{section}}
+\newcommand{\gauss}[1]{\lfloor #1\rfloor}
+\numberwithin{equation}{section}
+
+\newcommand{\beginchap}[1]{\begin{section}{#1}
+%\setcounter{equation}{1}
+}
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+
+
+\title{Data Structures and Algorithms in the GExpressions Package}
+\author{Hugo Meder}
+\begin{document}
+\begin{titlepage}
+\maketitle
+\end{titlepage}
+\tableofcontents
+
+\beginchap{Data structures}
+\begin{subsection}{Terms}
+Terms are represented by GTerm class instances. They consist of the elements:
+\begin{itemize}
+	\item a factor (\texttt{double}).
+	\item a list (\texttt{Vector}) of inverse metric tensors $g^{\mu\nu}$ (\texttt{GUpper}).
+	\item a list (\texttt{Vector}) of lower external indices $_\sigma$ (\texttt{LowerExtern}).
+	\item a list (\texttt{Vector}) of metric tensors and its derivatives $g_{\mu\nu,\sigma\tau...}$ (\texttt{Integer}).
+\end{itemize}
+
+\begin{subsubsection}{The Factor}
+Its meaning is just to multiply the term by this factor.
+\end{subsubsection}
+
+\begin{subsubsection}{The List of metric Tensors and its Derivatives}
+This list consists only of \texttt{Inerger}s. I does not contain any information of the index structure of its elements.
+This is supplied by the other elements of the \texttt{GTerm} instances.
+\end{subsubsection}
+
+\begin{subsubsection}{The \texttt{Index} class}
+The \texttt{Index} class instances provide the following information:
+\begin{itemize}
+	\item if it is an external index, then the index is simply representen by an \texttt{Integer}.
+	\item if it is not an external index, that it is an internal index, then it is identified, first by an \texttt{Integer} referring to the list of 
+	metric tensors and its derivatives, and second by a \texttt{boolean} which decides whether this index refers to the metric tensor itself or its derivative.
+\end{itemize}
+\end{subsubsection}
+
+\begin{subsubsection}{The List of inverse metric Tensors}
+The elements of that list (\texttt{GUpper}) consist just of the two upper indices (\texttt{Index}).
+\end{subsubsection}
+
+\begin{subsubsection}{The List of lower external Indices}
+The elements of that list (\texttt{LowerExtern}) consist of an \texttt{Index} element which is of the enternal type, and one of the internal type.
+\end{subsubsection}
+
+\begin{subsubsection}{The Construction of \texttt{GTerm} Objects}
+First a \texttt{GTerm} object is created providing the factor and the list of metric tensors and its derivatives as an \texttt{integer[]} array by its constructor. For each of the last array an internal object is created. Then elements of \texttt{GUpper} and \texttt{LowerExtern} are added. The interal objects count the number of internal indices. Finally a method \texttt{finish()} is called, which ensures that the numbers of internal indices match for each of the internal objects.
+\end{subsubsection}
+
+\end{subsection}
+\eeeccc
+\end{document}

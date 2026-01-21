@@ -1,8 +1,0 @@
-\contentsline {section}{\numberline {1}Data structures}{1}{}%
-\contentsline {subsection}{\numberline {1.1}Terms}{1}{}%
-\contentsline {subsubsection}{\numberline {1.1.1}The Factor}{1}{}%
-\contentsline {subsubsection}{\numberline {1.1.2}The List of metric Tensors and its Derivatives}{1}{}%
-\contentsline {subsubsection}{\numberline {1.1.3}The \texttt {Index} class}{1}{}%
-\contentsline {subsubsection}{\numberline {1.1.4}The List of inverse metric Tensors}{1}{}%
-\contentsline {subsubsection}{\numberline {1.1.5}The List of lower external Indices}{1}{}%
-\contentsline {subsubsection}{\numberline {1.1.6}The Construction of \texttt {GTerm} Objects}{2}{}%

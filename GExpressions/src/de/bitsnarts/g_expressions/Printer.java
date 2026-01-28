@@ -89,6 +89,8 @@ public class Printer {
 	}
 	
 	public static String toString ( GExpression e ) {
+		if ( e.isNull() )
+			return "0" ;
 		StringBuffer sb = new StringBuffer () ;
 		for ( GTerm t : e.terms ) {
 			if ( t.factor >= 0 )

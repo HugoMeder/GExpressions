@@ -12,7 +12,8 @@ public class LandauLifshitz extends Test {
 	private GExpression C;
 	private GExpression D;
 	private GExpression E;
-
+	private static double g_up_low = 1 ;
+	
 	GExpression B () {
 		GExpression rv = new GExpression () ;
 		rv.add( Tools.g_upper( 0, 1).times ( Tools.g_upper(2, 3) ) );
@@ -21,7 +22,7 @@ public class LandauLifshitz extends Test {
 	}
 	
 	GExpression landauLifschitzA () {
-		ABCD () ;
+		BCDE () ;
 		return ( D ) ;
 	}
 	
@@ -30,20 +31,20 @@ public class LandauLifshitz extends Test {
 		ll = ll.times( 0.5 ) ;
 		GExpression einst = Tools.Einstein() ;
 		ll.add( einst.times( -1 ) );
-		ll = ll.canonic() ;
-		return ll;
+		//ll = ll.canonic() ;
+		return ll ;
 	}
 	
 	GExpression landauLifschitzADerivation() {
-		ABCD () ;
+		BCDE () ;
 		GExpression rv = new GExpression () ;
-		GExpression e = Tools.g_upper(-1, 4, 5).times(Tools.g_low(4,5).derivate(0)) ;
+		GExpression e = g_deriv(-1, 0) ;
 		rv.add(D.times(e));
 		rv.add( E );
-		return rv.times( 0.5 ) ;
+		return rv;
 	}
 	
-	private void ABCD() {
+	private void BCDE() {
 		if ( B!= null )
 			return ;
 		B = B () ;
@@ -52,9 +53,23 @@ public class LandauLifshitz extends Test {
 		E = d ( D, 0) ;
 	}
 
+	static GExpression g_deriv ( double f, int derivBy ) {
+		int i = 0 ;
+		while ( i == derivBy )
+			i++ ;
+		int j = i+1 ;
+		while ( j == derivBy )
+			j++ ;
+		return Tools.g_upper( f*g_up_low, i, j ).times ( Tools.g_low(i, j).derivate( derivBy ) ) ;
+	}
+	
+	static GExpression g_deriv ( int derivBy ) {
+		return g_deriv ( 1, derivBy ) ;
+	}
+	
 	GExpression d ( GExpression in, int deriveBy ) {
 		GTerm t = Tools.g_upper( 4, 5 ) ;
-		GExpression e = Tools.g_low( 4, 5 ).derivate( deriveBy ).times( t ).times ( in ) ;
+		GExpression e = g_deriv(deriveBy).times ( in ) ;
 		GExpression rv = new GExpression () ;
 		rv.add(e);
 		rv.add(in.derivate(deriveBy));
@@ -78,6 +93,7 @@ public class LandauLifshitz extends Test {
 		boolean passed() {
 			LandauLifshitz LL = new LandauLifshitz () ;
 			GExpression ll = LL.landauLifschitzTensor() ;
+			int d0 = ll.getLargestDegree () ;
 			ll = ll.canonic() ;
 			int d = ll.getLargestDegree () ;
 			return d < 2 ;
@@ -99,6 +115,90 @@ public class LandauLifshitz extends Test {
 		}
 	}
 
+	class SimpleTest extends Test {
+
+		@Override
+		String getName() {
+			return "SimpleTest";
+		}
+
+		@Override
+		boolean passed() {
+			GTerm t = Tools.g_low(0, 1) ;
+			GExpression e = new GExpression () ;
+			e.add( t );
+			e = d ( e, 2 ) ;
+			System.out.println ( e.asLatex( "X" ) ) ;
+			t = Tools.g_upper(0, 1) ;
+			e = new GExpression () ;
+			e.add( t );
+			e = d ( e, 0 ) ;
+			System.out.println ( e.asLatex( "Y" ) ) ;
+			e = d ( e, 1 ) ;
+			System.out.println ( e.asLatex( "Z" ) ) ;
+			e = e.canonic() ;
+			System.out.println ( e.asLatex( "Z" ) ) ;
+			return true ;
+		}
+
+		@Override
+		Vector<Test> getSubTests() {
+			return null;
+		}
+	}
+
+
+	class TestDivergence0 extends Test {
+
+		@Override
+		String getName() {
+			return "TestDivergence0";
+		}
+
+		@Override
+		boolean passed() {
+			LandauLifshitz ll = new LandauLifshitz();
+			GExpression LL = ll.landauLifschitzA() ;
+			GExpression lld = LL.derivate(0) ;
+			lld = lld.canonic() ;
+			System.out.println ( lld.asLatex( "Div" ) ) ;
+			lld.add( ll.landauLifschitzADerivation().times(-1 ) ) ;
+			lld = lld.canonic() ;
+			return lld.isNull();
+		}
+
+		@Override
+		Vector<Test> getSubTests() {
+			return null;
+		}
+	}
+
+	class TestDivergence2 extends Test {
+
+		@Override
+		String getName() {
+			return "TestDivergence2";
+		}
+
+		@Override
+		boolean passed() {
+			LandauLifshitz ll = new LandauLifshitz();
+			GExpression LL = ll.landauLifschitzA() ;
+			GExpression lld = LL.derivate(0) ;
+			GExpression a = g_deriv(1, 0 ).times(LL) ;
+			lld.add( a );
+			lld = lld.canonic() ;
+			System.out.println ( lld.asLatex( "LLD2") ) ;
+			return lld.isNull();
+		}
+
+		@Override
+		Vector<Test> getSubTests() {
+			return null;
+		}
+	}
+
+
 	class TestDivergence extends Test {
 
 		@Override
@@ -111,16 +211,14 @@ public class LandauLifshitz extends Test {
 			LandauLifshitz ll = new LandauLifshitz();
 			GExpression LL = ll.landauLifschitzADerivation() ;
 			LL = LL.canonic() ;
-			GExpression div = LL.derivate(1);
-			div = div.canonic () ;
-			return div.isNull();
+			//System.out.println ( LL.asLatex( "A" ) ) ;
+			return LL.isNull();
 		}
 
 		@Override
 		Vector<Test> getSubTests() {
 			return null;
 		}
-		
 	}
 
 	@Override
@@ -137,6 +235,9 @@ public class LandauLifshitz extends Test {
 	Vector<Test> getSubTests() {
 		Vector<Test> rv = new Vector<Test> () ;
 		rv.add( new TestNoSecond() ) ;
+		rv.add( new SimpleTest() ) ;
+		rv.add( new TestDivergence2() ) ;
+		rv.add( new TestDivergence0() ) ;
 		rv.add( new TestDivergence() ) ;
 		return rv;
 	}

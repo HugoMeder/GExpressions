@@ -142,6 +142,19 @@ public String asLatex ( Vector<Integer> upperInds, Vector<Integer> lowerInds, St
 	return Printer.asLatex(this, upperInds, lowerInds, name ) ;
 }
 
+public String asLatex ( String name ) {
+	if ( isNull() )
+		return name+"=0" ;
+	Vector<Integer> ui = new Vector<Integer> () ;
+	Vector<Integer> li = new Vector<Integer> () ;
+	for ( Integer i : upperInds )
+		ui.add(i) ;
+	for ( Integer i : lowerInds )
+		li.add(i) ;
+	return Printer.asLatex(this, ui, li, name ) ;
+}
+
+
 public String asLatex(boolean canonicTerms, Vector<Integer> upperInds, Vector<Integer> lowerInds, String name) {
 	return Printer.asLatex(canonicTerms, this, upperInds, lowerInds, name ) ;
 }
@@ -152,5 +165,17 @@ public GExpression cov ( int deriveBy ) {
 		rv.add ( t.cov(deriveBy)) ;
 	}
 	return rv ;
+}
+
+public String asLatex(boolean camonicTerms, String name) {
+	if ( isNull() )
+		return name+"=0" ;
+	Vector<Integer> ui = new Vector<Integer> () ;
+	Vector<Integer> li = new Vector<Integer> () ;
+	for ( Integer i : upperInds )
+		ui.add(i) ;
+	for ( Integer i : lowerInds )
+		li.add(i) ;
+	return asLatex( camonicTerms, ui, li, name ) ;
 }
 }

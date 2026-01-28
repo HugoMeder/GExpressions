@@ -52,7 +52,7 @@ class ContractAllIndices {
 			int srcIndex = 0 ;
 			for ( int i : rv.derivs_ ) {
 				map.put( srcIndex, dstIndex ) ;
-				if ( i != noDerivIndex ) {
+				if ( srcIndex != noDerivIndex ) {
 					derivs[dstIndex] = i ;
 					dstIndex++ ;
 				}
@@ -515,10 +515,14 @@ public String toString () {
 
 @Override
 public int compareTo(GTerm o) {
+	int cmp = 0 ;
 	if ( ! ordered )
 		throw new Error ( "! ordered") ;
 	if ( ! o.ordered )
 		throw new Error ( "! o.ordered") ;
+	cmp = getLargestDegree()-o.getLargestDegree() ;
+	if ( cmp != 0 )
+		return -cmp ;
 	if ( derivs_.length != o.derivs_.length )
 		return derivs_.length-o.derivs_.length ;
 	if ( gs.size() != o.gs.size() )
@@ -526,7 +530,7 @@ public int compareTo(GTerm o) {
 	if ( lext.size() != o.lext.size() )
 		return lext.size()-o.lext.size() ;
 	int n = derivs_.length ;
-	int cmp = 0 ;
+
 	for ( int i = 0 ; i < n ; i++ ) {
 		cmp = derivs_[i]-o.derivs_[i] ;
 		if ( cmp != 0 )
@@ -661,7 +665,7 @@ public void addFactor(double add) {
 }*/
 
 public int getLargestDegree() {
-	int rv = 0 ;
+	int rv = -1 ;
 	for ( int d : derivs_ ) {
 		if ( d > rv )
 			rv = d ;

@@ -24,20 +24,29 @@ public class MyEnergy extends Test {
 		return rv ;
 	} 
 	
-	GExpression myTensor () {
-		GExpression rv = gravitationalPart () ;
-		rv.add( Tools.Einstein().times( Tools.g_low(1, 2)));
+	GExpression myTensor ( int i1, int i2 ) {
+		int i3 = 0 ;
+		while ( i3 == i1 || i3 == i2 )
+			i3++ ;
+		GExpression rv = gravitationalPart ( i1, i2 ) ;
+		rv.add( Tools.Einstein(i1, i3).times( Tools.g_low(i3, i2)));
 		//System.out.println ( rv.asLatex(true, getName())) ;
 		rv = rv.canonic() ;
 		return rv ;
 	}
 	
-	private GExpression gravitationalPart() {
+	private GExpression gravitationalPart(int i1, int i2 ) {
+		int i3 = 0 ;
+		while ( i3 == i1 || i3 == i2 )
+			i3++ ;
+		int i4 = i3+1 ;
+		while ( i4 == i1 || i4 == i2 )
+			i4++ ;
 		GExpression rv = new GExpression () ;
-		rv.add(Tools.g_upper(3, 0).times(Tools.GammaUpper(3, 4, 4).derivate(2) ));
-		rv.add( Tools.g_upper( -1, 4, 5).times( Tools.GammaUpper(4, 5, 0).derivate(2)));
+		rv.add(Tools.g_upper(i3, 0).times(Tools.GammaUpper(i3, i4, i4).derivate(i2) ));
+		rv.add( Tools.g_upper( -1, i3, i4).times( Tools.GammaUpper(i3, i4, 0).derivate(i2)));
 		GExpression R = Tools.RicciHigh ( 0, 1 ).times(Tools.g_low(0, 1)) ;
-		GTerm delta = Tools.g_upper(0, 1).times( Tools.g_low(1, 2));
+		GTerm delta = Tools.g_upper(i1, 1).times( Tools.g_low(1, i2));
 		rv.add( R.times( delta));
 		rv = rv.times( 0.5 ) ;
 		return rv ;
@@ -79,10 +88,10 @@ public class MyEnergy extends Test {
 			}
 			if ( !cmp () )
 				return false ;
-			if ( symDiv ( ) )
-				return false ;
-			System.out.println ( gravitationalPart().times( Tools.g_low (0, 1)).canonic().asLatex( "A"));
-			GExpression mt = myTensor () ;
+			//if ( !symDiv ( ) )
+			//	return false ;
+			//System.out.println ( gravitationalPart(0,1).times( Tools.g_low (0, 1)).canonic().asLatex( "A"));
+			GExpression mt = myTensor (0,2) ;
 			GExpression d = new GExpression () ;
 			d.add( mt.derivate(0 ));
 			GExpression gd = Tools.g_upper(0.5, 1, 2).times( Tools.g_low(1, 2).derivate(0)) ;
@@ -104,7 +113,6 @@ public class MyEnergy extends Test {
 
 	public boolean symDiv() {
 		GExpression mt = myTensorUpper () ;
-		mt = mkAsym ( mt, 0, 1, 1, 0 ) ;
 		GExpression d = new GExpression () ;
 		d.add( mt.derivate(0 ));
 		GExpression gd = Tools.g_upper(0.5, 4, 5).times( Tools.g_low(4, 5).derivate(0)) ;
@@ -115,7 +123,7 @@ public class MyEnergy extends Test {
 
 	public boolean cmp() {
 		GExpression e = new GExpression () ;
-		e.add( myTensor () );
+		e.add( myTensor (0,2) );
 		e.add( myTensor2 ().times( -1 ) );
 		e = e.canonic() ;
 		return e.isNull() ;
@@ -145,7 +153,7 @@ public class MyEnergy extends Test {
 
 
 	public boolean sym() {
-		GExpression mt = myTensor ().times(Tools.g_upper(2, 1)) ;
+		GExpression mt = myTensor (0,2).times(Tools.g_upper(2, 1)) ;
 		GExpression as = mkAsym ( mt, 0,1,1,0 ) ;
 		System.out.println ( as.asLatex( "A" ) ) ;
 		mt = mkSym ( mt, 0, 1, 1, 0 ) ;

@@ -79,10 +79,21 @@ public class Tools {
 	}
 
 	public static GExpression Einstein () {
-		GExpression rv = RicciHigh ( 0, 1 ) ;
+		return Einstein ( 0, 1 ) ;
+/*		GExpression rv = RicciHigh ( 0, 1 ) ;
 		GTerm t = g_low ( -0.5, 0, 1 ) ;
 		GExpression R_half = rv.times( t ) ;
-		GExpression e = R_half.times( g_upper(1,0,1));
+		GExpression e = R_half.times( g_upper(0,1));
+		rv.add( e ) ;
+		return rv ;*/
+	}
+	
+	
+	public static GExpression Einstein ( int i1, int i2 ) {
+		GExpression rv = RicciHigh ( i1, i2 ) ;
+		GTerm t = g_low ( -0.5, i1, i2 ) ;
+		GExpression R_half = rv.times( t ) ;
+		GExpression e = R_half.times( g_upper(1,i1,i2));
 		rv.add( e ) ;
 		return rv ;
 	}

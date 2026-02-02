@@ -1,0 +1,1105 @@
+% ----------------------------------------------------------------
+% AMS-LaTeX Paper ************************************************
+% **** -----------------------------------------------------------
+% documentclass[fleqn]{report}
+\documentclass[a4paper,fleqn]{article}
+% \documentclass[a4paper,fleqn]{scrreprt}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.0cm}
+\setlength{\textwidth}{15.0cm}
+\setlength{\paperwidth}{210mm}
+\setlength{\paperheight}{297mm}
+\usepackage{german}
+\usepackage{graphicx} 
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{alltt}
+\usepackage{color}
+\usepackage{fancyvrb}
+%\usepackage{hyperref}
+
+\newcounter{thm}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Hilfssatz}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+
+\newenvironment{proof}[1][Beweis]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newcommand*\codeRed[1]{\textcolor[rgb]{1,0,0}{\textbf{#1}}}
+\newcommand*\codeGreen[1]{\textcolor[rgb]{0,0.5,0}{\textbf{#1}}}
+\newcommand{\lb}{[}
+\newcommand{\rb}{]}
+\newcommand{\codeCall}[1]{\textbf{\texttt{#1}}}
+\newcommand{\mcL}{\mathcal{L}}
+%\newenvironment{\vspace{1ex}\noindent{\bf Proof}\hspace{0.5em}}
+%	{\hfill\qed\vspace{1ex}}
+ 
+
+\newenvironment{example}[1][Example]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newenvironment{remark}[1][Remark]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\newcommand{\qed}{\nobreak \ifvmode \relax \else
+      \ifdim\lastskip<1.5em \hskip-\lastskip
+      \hskip1.5em plus0em minus0.5em \fi \nobreak
+      \vrule height0.75em width0.5em depth0.25em\fi}
+
+\newcommand{\qt}{\texttt}
+
+\newcommand{\bibdef}[4]{\bibitem{#1} {\bf #2:} {\it #3}\\#4}
+
+\newcommand{\eeeccc}{\end{section}}
+\newcommand{\gauss}[1]{\lfloor #1\rfloor}
+\numberwithin{equation}{section}
+
+\newcommand{\beginchap}[1]{\begin{section}{#1}
+%\setcounter{equation}{1}
+}
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+
+
+\title{Gravitations-Energie in der allgemeine Relativitätstheorie}
+\author{Hugo Meder}
+\begin{document}
+\begin{titlepage}
+\maketitle
+\end{titlepage}
+\tableofcontents
+\beginchap{Die Methodik}
+\begin{subsection}{Das Problem}
+Aus einer Wirkung
+\begin{eqnarray}
+\label{lagrange_total}
+S &=& \int dx^0dx^1dx^2dx^3\ \sqrt{-g}\left(\mathcal{L}-\frac{1}{2\kappa}R\right)
+\end{eqnarray}
+sollen durch Variation sowohl die Einsteinschen Feldgleichungen als auch die Bewegungsgleichungen hervorgehen. Aus einem allgemeinen Zusammenhang zwischen Variation und dem Noetherschen Theorem können dann Ausdrücke
+für Energie und Impuls hergeleitet werden. Diese Ausdrücke, so die Erwartung, können als Summe von gravitativer und materieller Energie geschrieben werden.
+Konkret werden wir zeigen, das die Variation von $S$ (zumindest für zwei beispielhafte Felder) die Form
+\begin{eqnarray}
+\label{total_variation_integral}
+\delta S &=& \int dx^0dx^1dx^2dx^3\ \sqrt{-g}\left(\frac{1}{2}\left(-T^{\mu\nu}+\frac{1}{\kappa}G^{\mu\nu}\right)\delta g_{\mu\nu}+F\delta\phi\right)
+\end{eqnarray}
+annimmt, woraus sich
+\begin{eqnarray*}
+G^{\mu\nu} &=& \kappa T^{\mu\nu}\\
+F &=& 0
+\end{eqnarray*}
+ergibt. Hier ist $G^{\mu\nu}$ der Eintein-Tensor, $T^{\mu\nu}$ ein symmetrischer und divergenzfreier Energie-Impuls-Tensor der Materie, und $F$ die Bewegungsgleichung für Materie-Felder.
+\end{subsection}
+
+\begin{subsection}{Der allgemeine Zusammenhang zwischen Variationsprinzip und Erhaltungsgrößen}
+Zum Studium des allgemeinen Zusammenhangs benutzen wir folgende Wirkung
+\begin{eqnarray*}
+S &=& \int dx^0dx^1dx^2dx^3\ \mathcal{L}(\phi, \phi_{,\mu}, \phi_{,\mu\nu})
+\end{eqnarray*}
+Dadurch, dass wir $\mathcal{L}$ auch von den zweiten abhängen lassen, tritt zum einen das allgemeine Muster besser zum Vorschein, zum anderen hängt der Ricci-Skalar $R$ tatsächlich von zweiten Ableitungen $g_{\mu\nu,\alpha\beta}$ ab.
+\begin{subsubsection}{Die Bewegungsgleichungen}
+Wir führen nun die Variation explizit durch:
+\begin{eqnarray*}
+\delta S &=& \int dx^0dx^1dx^2dx^3\ \delta \mathcal{L}=\int dx^0dx^1dx^2dx^3\ \frac{\partial \mathcal{L}}{\partial \phi}\delta \phi+\frac{\partial \mathcal{L}}{\partial \phi_{,\mu}}\delta \phi_{,\mu}+\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\delta \phi_{,\mu\nu}
+\end{eqnarray*}
+und benutzen partielle Integration:
+\begin{eqnarray*}
+\int dx^0dx^1dx^2dx^3\ \frac{\partial \mathcal{L}}{\partial \phi_{,\mu}}\delta \phi_{,\mu}&=& \int dx^0dx^1dx^2dx^3\ \left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu}}\delta \phi\right)_{,\mu}-\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu}}\right)_{,\mu}\delta \phi\\
+\int dx^0dx^1dx^2dx^3\ \frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\delta \phi_{,\mu\nu}&=& \int dx^0dx^1dx^2dx^3\ \left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\delta \phi_{,\mu}\right)_{,\nu}-\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\right)_{,\nu}\delta \phi_{,\mu}\\
+&=& \int dx^0dx^1dx^2dx^3\ \left[\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\delta \phi_{,\mu}\right)_{,\nu}\right.\\
+&&\left.-\left(\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\right)_{,\nu}\delta \phi\right)_{,\mu}+\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\right)_{,\nu\mu}\delta \phi\right]\\
+\end{eqnarray*}
+und erhalten
+\begin{eqnarray*}
+\delta S &=& \int dx^0dx^1dx^2dx^3\ \left(\frac{\partial \mathcal{L}}{\partial \phi}-\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu}}\right)_{,\mu}+\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\right)_{,\nu\mu}\right)\delta \phi
+\end{eqnarray*}
+wobei wir die Integration über die Divergenzen fallen gelassen haben\footnote{Dies ist aber nur legitim, falls wegen $\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\delta \phi_{,\mu}\right)_{,\nu}$ am Rand nebst den Variationen $\delta\phi$ auch deren Ableitungen $\delta\phi_{,\mu}$ verschwinden.}. Damit erhalten wir die Euler-Lagrangen Bewegungsgleichungen:
+\begin{eqnarray}
+\label{eul_lagr_eqns}
+\frac{\partial \mathcal{L}}{\partial \phi}-\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu}}\right)_{,\mu}+\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\right)_{,\nu\mu} &=& 0
+\end{eqnarray}
+Sollte $\mathcal{L}$ nur von den ersten Ableitungen $\phi_{,\mu}$ abhängen reduzieren sich die Bewegungsgleichungen zu
+\begin{eqnarray*}
+\frac{\partial \mathcal{L}}{\partial \phi}-\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu}}\right)_{,\mu} &=& 0
+\end{eqnarray*}
+Das Wegfallen der Divergenzen ist dadurch gerechtfertigt, das sich die Variation über ein \textbf{Integral} erstreckt und angenommen wird dass die Randterme verschwinden (partielle Integration). Dennoch sei die Variation $\delta \mathcal{L}$ auch zur späteren Verwendung, vollständig hingeschrieben:
+\begin{eqnarray}
+\label{l_tot_vari}
+\delta \mathcal{L} &=& \left(\frac{\partial \mathcal{L}}{\partial \phi}-\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu}}\right)_{,\mu}+\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\right)_{,\nu\mu}\right)\delta \phi\cr
+&&+\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu}}\delta \phi\right)_{,\mu}+\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\delta \phi_{,\mu}\right)_{,\nu}
+-\left(\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\right)_{,\nu}\delta \phi\right)_{,\mu}\cr
+&=& \left(\frac{\partial \mathcal{L}}{\partial \phi}-\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu}}\right)_{,\mu}+\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\right)_{,\nu\mu}\right)\delta \phi\cr
+&&+\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu}}\delta \phi+\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\delta \phi_{,\nu}
+-\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\right)_{,\nu}\delta \phi\right)_{,\mu}
+\end{eqnarray}
+\end{subsubsection}
+
+\begin{subsubsection}{Noether's Theorem und Erhaltungsgrößen}
+Noether's Theorem beschreibt die Existenz einer Erhaltungsgröße falls die Lagrange-Dichte $\mathcal{L}$ eine kontinuierliche Symmetrie-Bedingung
+\begin{eqnarray}
+\label{noether_cond}
+\frac{d\mathcal{L}}{d\epsilon} &=& D^\mu_{,\mu}
+\end{eqnarray}
+erfüllt. Wir können \ref{l_tot_vari} verwenden:
+\begin{eqnarray*}
+\frac{d\mathcal{L}}{d\epsilon} &=& \left(\frac{\partial \mathcal{L}}{\partial \phi}-\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu}}\right)_{,\mu}+\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\right)_{,\nu\mu}\right)\frac{d\phi}{d\epsilon}\cr
+&&+\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu}}\frac{d\phi}{d\epsilon}+\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\frac{d\phi_{,\mu}}{d\epsilon}
+-\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\right)_{,\nu}\frac{d\phi}{d\epsilon}\right)_{,\mu}= D^\mu_{,\mu}
+\end{eqnarray*}
+Nehmen wir nun an, die Bewegungsgleichungen \ref{eul_lagr_eqns} seien erfüllt, dann wird daraus
+\begin{eqnarray*}
+\frac{d\mathcal{L}}{d\epsilon} &=&\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu}}\frac{d\phi}{d\epsilon}+\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\frac{d\phi_{,\mu}}{d\epsilon}
+-\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\right)_{,\nu}\frac{d\phi}{d\epsilon}\right)_{,\mu}= D^\mu_{,\mu}
+\end{eqnarray*}
+und wir erhalten einen divergenzfreien Strom $j^\mu$
+\begin{eqnarray*}
+j^\mu_{,\mu} &=& \left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu}}\frac{d\phi}{d\epsilon}+\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\frac{d\phi_{,\mu}}{d\epsilon}
+-\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\right)_{,\nu}\frac{d\phi}{d\epsilon}-D^\mu\right)_{,\mu}=0
+\end{eqnarray*}
+Die entsprechende globale Erhaltungsgröße ist
+\begin{eqnarray*}
+Q (x^0) &=& \int dx^1dx^2dx^3\ j^0(x^\mu)
+\end{eqnarray*}
+denn
+\begin{eqnarray*}
+\frac{d}{dt}Q (x^0) &=& cQ_{,0}  = c\int dx^1dx^2dx^3\ j^0_{,0}(x^\mu) = c\int dx^1dx^2dx^3\ j^\mu_{,\mu}-j^k_{,k}\\
+&=& -c\int dx^1dx^2dx^3\ j^k_{,k} = 0
+\end{eqnarray*}
+\end{subsubsection}
+
+\begin{subsubsection}{Energie und Impuls}
+Für eine infinitesimale Verschiebung
+\begin{eqnarray*}
+\phi(x^\mu) &\rightarrow& \phi(x^\mu+\xi^\mu\epsilon)
+\end{eqnarray*}
+mit konstantem $\xi^\mu$ erhalten wir
+\begin{eqnarray*}
+\frac{d \phi}{d\epsilon} &=& \phi_{,\mu}\xi^\mu\\
+\frac{d \mathcal{L}}{d\epsilon} &=& \mathcal{L}_{,\mu}\xi^\mu = \left(\mathcal{L}\xi^\mu\right)_{,\mu}
+\end{eqnarray*}
+womit die Bedingung \ref{noether_cond} mit $D^\mu = \mathcal{L}\xi^\mu$ erfüllt ist. Der entsprechende divergenzfreie Strom ist dann
+\begin{eqnarray*}
+j^\mu &=& \left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu}}\frac{d\phi}{d\epsilon}+\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\frac{d\phi_{,\mu}}{d\epsilon}
+-\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\right)_{,\nu}\frac{d\phi}{d\epsilon}-D^\mu\right)\\
+&=& \left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu}}\phi_{,\lambda}+\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\phi_{,\mu\lambda}
+-\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\right)_{,\nu}\phi_{,\lambda}-\mathcal{L}\delta^\mu_\lambda\right)\xi^\lambda
+\end{eqnarray*}
+mit
+\begin{eqnarray*}
+\Theta^\mu_\lambda &=& \left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu}}\phi_{,\lambda}+\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\phi_{,\mu\lambda}
+-\left(\frac{\partial \mathcal{L}}{\partial \phi_{,\mu\nu}}\right)_{,\nu}\phi_{,\lambda}-\mathcal{L}\delta^\mu_\lambda\right)
+\end{eqnarray*}
+erhalten wir den globalen Erhaltungssatz
+\begin{eqnarray*}
+Q &=& \int dx^1dx^2dx^3\ \Theta^0_\lambda\xi^\lambda
+\end{eqnarray*}
+Für $\xi^\mu=\delta^\mu_0$ beschreibt $Q$ die Energie, für Raumindizes $k$ und $\xi^\mu=\delta^\mu_k$ bedeutet Q den Impuls in $k$-Richtung. Der Energie-Impuls Vektor ist entsprechend
+\begin{eqnarray*}
+P_\lambda &=& \int dx^1dx^2dx^3\ \Theta^0_\lambda
+\end{eqnarray*}
+Die Größe $\Theta^\mu_\lambda$ heißt \textbf{kanonischer} Energie-Impuls-Tensor.
+\end{subsubsection}
+\end{subsection}
+\eeeccc
+
+
+\beginchap{Lagrange Formulierung der Vakuumgleichungen der allgemeinen Relativitätstheorie}
+\label{art_lagr}
+
+\begin{subsection}{Integration in gekrümmten Räumen}
+Integrale über Vektoren und Tensoren in gekrümmten Räumen sind naturgemäß sinnlos, da Vektoren und Tensoren an verschiedene Punkten im Raume zu verschiedenen Tangential-Räumen gehören und daher nicht addiert werden können.
+Dieses Problem existiert nicht für Skalare. Integrale der Form
+\begin{eqnarray*}
+\int_\Omega dx^0dx^1dx^2dx^3 \sqrt{-g}f
+\end{eqnarray*}
+sind zum Beispiel für ein vierdimensionales Raum-Zeit-Gebiet $\Omega$ sehr wohl definiert.
+
+\begin{subsubsection}{Der Gaußsche Satz und partielle Integration in gekrümmten Räumen}
+\begin{paragraph}{Kovariante Divergenz}
+Die Anwendung des Satzes von Gauß im Rahmen der Riemannschen Geometrie beruht im Wesentlichen auf der folgenden Identität:
+\begin{eqnarray}
+\label{riemann_gauss}
+\sqrt{g}F^\mu_{;\mu} &=& \left(\sqrt{g}F^\mu\right)_{,\mu}
+\end{eqnarray}
+\begin{proof}
+Zunächst stellen wir fest:
+\begin{eqnarray*}
+F^\mu_{;\nu} &=& F^\mu_{,\nu}+F^\alpha\Gamma^\mu_{\alpha\nu}\\
+F^\mu_{;\mu} &=& F^\mu_{,\mu}+F^\alpha\Gamma^\mu_{\alpha\mu}=F^\mu_{,\mu}+F^\alpha\frac{1}{2}g^{\mu\nu}g_{\mu\nu,\alpha}\\
+\end{eqnarray*}
+und weiter gilt es den Ausdruck $\sqrt{g}_{,\mu}$ weiter auszuwerten:
+\begin{eqnarray*}
+\sqrt{g}_{,\mu} &=& \frac{1}{2}\frac{g_{,\mu}}{\sqrt{g}}\\
+\det(g_{\alpha\beta}(x^\mu+d\gamma^\mu)) &=& \det(g_{\alpha\beta}(x)+g_{\alpha\beta,\mu}(x)d\gamma^\mu)\\
+&=& \det\left(g_{\alpha\sigma}\left(\delta^\sigma_\beta+g^{\sigma\gamma}g_{\gamma\beta,\mu}d\gamma^\mu\right)\right)\\
+&=& \det\left(g_{\alpha\sigma}\right)\det\left(\delta^\sigma_\beta+g^{\sigma\gamma}g_{\gamma\beta,\mu}d\gamma^\mu\right)\\
+&=& g\left(1+g^{\beta\gamma}g_{\gamma\beta,\mu}d\gamma^\mu\right)\\
+g_{,\mu} &=&gg^{\beta\gamma}g_{\gamma\beta,\mu}\\
+\sqrt{g}_{,\mu} &=& \frac{1}{2}\frac{gg^{\beta\gamma}g_{\gamma\beta,\mu}}{\sqrt{g}}=\frac{1}{2}\sqrt{g}g^{\beta\gamma}g_{\gamma\beta,\mu}\\
+\end{eqnarray*}
+Damit erhalten wir schließlich
+\begin{eqnarray*}
+\sqrt{g}F^\mu_{;\mu} &=& \sqrt{g}\left(F^\mu_{,\mu}+F^\alpha\frac{1}{2}g^{\mu\nu}g_{\mu\nu,\alpha}\right)\\
+\left(\sqrt{g}F^\mu\right)_{,\mu} &=& \sqrt{g}F^\mu_{,\mu}+\sqrt{g}_{,\mu}F^\mu=\sqrt{g}\left(F^\mu_{,\mu}+\frac{1}{2}F^\mu g^{\beta\gamma}g_{\gamma\beta,\mu}\right)
+\end{eqnarray*}
+\qed
+\end{proof}
+\end{paragraph}
+
+\begin{paragraph}{Satz von Gauß}
+Der Satz von Gauß lässt sich nun für eine vierdimensionale Raum-Zeit formulieren:
+\begin{eqnarray*}
+\int_\Omega dx^0dx^1dx^2dx^3 \sqrt{-g}F^\mu_{;\mu}&=&\int_\Omega dx^0dx^1dx^2dx^3 \left(\sqrt{-g}F^\mu\right)_{,\mu}\\
+&=&\oint_{\partial \Omega} d \omega_\mu \sqrt{-g}F^\mu
+\end{eqnarray*}
+für ein beliebiges Raum-Zeit-Gebiet $\Omega$. Erstreckt sich $\Omega$ aber über den gesamten Raum, aber über ein beschränktes Zeitintervall $x^0\in [a,b]$ dann ergibt sich folgende Form:
+\begin{eqnarray*}
+\int_{x^0=a}^{x^0=b} dx^0dx^1dx^2dx^3 \sqrt{-g}F^\mu_{;\mu}&=&\left(\int dx^1dx^2dx^3 \sqrt{-g}F^0\right|_{x^0=b}-\left(\int dx^1dx^2dx^3 \sqrt{-g}F^0\right|_{x^0=a}
+\end{eqnarray*}
+\end{paragraph}
+\end{subsubsection}
+\end{subsection}
+
+\begin{subsection}{Die These}
+Wir betrachten die so genannte Einstein-Hilbert-Wirkung (bis auf eine Konstante)
+\begin{eqnarray*}
+S[g] &=& \int \sqrt{-g} Rdx^4
+\end{eqnarray*}
+und wir behaupten, dass
+\begin{eqnarray*}
+\delta S[g] = 0 &\Rightarrow& G_{\mu\nu} = 0
+\end{eqnarray*}
+genauer:
+\begin{eqnarray}
+\label{einst_hilbert}
+\delta S[g] &=& c \int dx^4\ \sqrt{-g(x)}G^{\mu\nu}(x)\delta g_{\mu\nu} = 0
+\end{eqnarray}
+mit einer Konstanten $c\ne 0$.
+\end{subsection}
+\begin{subsection}{Hilfssatz: $\delta\Gamma^\sigma_{\mu\nu}$ ist ein Tensor}
+Einfachheitshalber untersuchen wir zuerst
+\begin{eqnarray*}
+\Gamma_{\mu\nu\lambda} &=& g_{\lambda\alpha}\Gamma^\alpha_{\mu\nu}\\
+&=& \frac{1}{2}\left(g_{\lambda\nu,\mu}+g_{\mu\lambda,\nu}-g_{\mu\nu,\lambda}\right)\\
+\delta\Gamma_{\mu\nu\lambda} &=& \frac{1}{2}\left(\delta g_{\lambda\nu,\mu}+\delta g_{\mu\lambda,\nu}-\delta g_{\mu\nu,\lambda}\right)
+\end{eqnarray*}
+Anstelle der Ableitungen können auch die kovarianten Ableitungen benutzt werden:
+\begin{eqnarray*}
+\delta g_{\lambda\nu;\mu} &=& \delta g_{\lambda\nu,\mu}-\delta g_{\alpha\nu}\Gamma^\alpha_{\lambda\mu}-\delta g_{\lambda\alpha}\Gamma^\alpha_{\nu\mu}\\
+\delta g_{\lambda\mu;\nu} &=& \delta g_{\lambda\mu,\nu}-\delta g_{\alpha\mu}\Gamma^\alpha_{\lambda\nu}-\delta g_{\lambda\alpha}\Gamma^\alpha_{\mu\nu}\\
+-\delta g_{\mu\nu;\lambda} &=& -\delta g_{\mu\nu,\lambda}+\delta g_{\alpha\nu}\Gamma^\alpha_{\mu\lambda}+\delta g_{\mu\alpha}\Gamma^\alpha_{\nu\lambda}\\
+\frac{1}{2}\left(\delta g_{\lambda\nu;\mu}+\delta g_{\mu\lambda;\nu}-\delta g_{\mu\nu;\lambda}\right) &=& \delta\Gamma_{\mu\nu\lambda}-\delta g_{\lambda\alpha}\Gamma^\alpha_{\mu\nu}\\
+\delta\Gamma_{\mu\nu\lambda} &=& \frac{1}{2}\left(\delta g_{\lambda\nu;\mu}+\delta g_{\mu\lambda;\nu}-\delta g_{\mu\nu;\lambda}\right)+\delta g_{\lambda\alpha}\Gamma^\alpha_{\mu\nu}
+\end{eqnarray*}
+Und schließlich die Variation von $\delta\Gamma^\sigma_{\mu\nu}$:
+\begin{eqnarray*}
+\Gamma^\sigma_{\mu\nu} &=& g^{\sigma\lambda}\Gamma_{\mu\nu\lambda}\\
+\delta\Gamma^\sigma_{\mu\nu} &=& \delta g^{\sigma\lambda}\Gamma_{\mu\nu\lambda}+g^{\sigma\lambda}\delta\Gamma_{\mu\nu\lambda}\\
+&=& -\delta g_{\alpha\beta}g^{\alpha\sigma}g^{\beta\lambda}\Gamma_{\mu\nu\lambda}+g^{\sigma\lambda}\delta\Gamma_{\mu\nu\lambda}\\
+&=& -\delta g_{\alpha\beta}g^{\alpha\sigma}\Gamma^\beta_{\mu\nu}+g^{\sigma\lambda}\delta\Gamma_{\mu\nu\lambda}\\
+&=& -\delta g_{\alpha\beta}g^{\alpha\sigma}\Gamma^\beta_{\mu\nu}+g^{\sigma\lambda}\left(\frac{1}{2}\left(\delta g_{\lambda\nu;\mu}+\delta g_{\mu\lambda;\nu}-\delta g_{\mu\nu;\lambda}\right)+\delta g_{\lambda\alpha}\Gamma^\alpha_{\mu\nu}\right)\\
+&=& \frac{1}{2}g^{\sigma\lambda}\left(\delta g_{\lambda\nu;\mu}+\delta g_{\mu\lambda;\nu}-\delta g_{\mu\nu;\lambda}\right)\\
+\end{eqnarray*}
+Die letzte Zeile beschreibt einen Tensor, denn $g_{\mu\nu}$ und $\delta g_{\mu\nu}$ sind Tensoren und die kovariante Ableitung macht aus Tensoren wiederum Tensoren.
+\end{subsection}
+
+\begin{subsection}{Die Variation}
+Wir wollen die Variation
+\begin{eqnarray*}
+\delta\int\sqrt{-g}Rd^4x
+\end{eqnarray*}
+bestimmen.
+Der Riemannsche Krümmungstensor ist  gegeben durch:
+\begin{eqnarray*}
+R^\alpha_{\mu\nu\lambda} &=& -\Gamma^\alpha_{\mu\nu,\lambda}
++\Gamma^\alpha_{\mu\lambda,\nu}+\Gamma^\alpha_{\beta\nu}\Gamma^\beta_{\mu\lambda}-\Gamma^\alpha_{\beta\lambda}\Gamma^\beta_{\mu\nu}
+\end{eqnarray*}
+Und die Variation davon ist:
+\begin{eqnarray*}
+\delta R^\alpha_{\mu\nu\lambda} &=& -\delta\Gamma^\alpha_{\mu\nu,\lambda}+\delta\Gamma^\alpha_{\mu\lambda,\nu}\\
+&&+\delta\Gamma^\alpha_{\beta\nu}\Gamma^\beta_{\mu\lambda}-\delta\Gamma^\alpha_{\beta\lambda}\Gamma^\beta_{\mu\nu}
++\Gamma^\alpha_{\beta\nu}\delta\Gamma^\beta_{\mu\lambda}-\Gamma^\alpha_{\beta\lambda}\delta\Gamma^\beta_{\mu\nu}
+\end{eqnarray*}
+Da aber $\delta\Gamma^\alpha_{\mu\nu}$ ein Tensor ist, können wir die kovariante Ableitung bilden:
+\begin{eqnarray*}
+\left(\delta\Gamma^\alpha_{\mu\nu}\right)_{;\lambda} &=& \left(\delta\Gamma^\alpha_{\mu\nu}\right)_{,\lambda}
++\delta\Gamma^\beta_{\mu\nu}\Gamma^\alpha_{\beta\lambda}-\delta\Gamma^\alpha_{\beta\nu}\Gamma^\beta_{\mu\lambda}-\delta\Gamma^\alpha_{\mu\beta}\Gamma^\beta_{\nu\lambda}\\
+\delta\Gamma^\alpha_{\mu\nu,\lambda} &=& \left(\delta\Gamma^\alpha_{\mu\nu}\right)_{;\lambda}
+-\delta\Gamma^\beta_{\mu\nu}\Gamma^\alpha_{\beta\lambda}+\delta\Gamma^\alpha_{\beta\nu}\Gamma^\beta_{\mu\lambda}+\delta\Gamma^\alpha_{\mu\beta}\Gamma^\beta_{\nu\lambda}\\
+\left(\delta\Gamma^\alpha_{\mu\lambda}\right)_{;\nu} &=& \left(\delta\Gamma^\alpha_{\mu\lambda}\right)_{,\nu}
++\delta\Gamma^\beta_{\mu\lambda}\Gamma^\alpha_{\beta\nu}-\delta\Gamma^\alpha_{\beta\lambda}\Gamma^\beta_{\mu\nu}-\delta\Gamma^\alpha_{\mu\beta}\Gamma^\beta_{\lambda\nu}\\
+\delta\Gamma^\alpha_{\mu\lambda,\nu} &=& \left(\delta\Gamma^\alpha_{\mu\lambda}\right)_{;\nu}
+-\delta\Gamma^\beta_{\mu\lambda}\Gamma^\alpha_{\beta\nu}+\delta\Gamma^\alpha_{\beta\lambda}\Gamma^\beta_{\mu\nu}+\delta\Gamma^\alpha_{\mu\beta}\Gamma^\beta_{\lambda\nu}
+\end{eqnarray*}
+Oben eingesetzt ergibt dies:
+\begin{eqnarray*}
+\delta R^\alpha_{\mu\nu\lambda} &=& -\delta\Gamma^\alpha_{\mu\nu;\lambda}+\delta\Gamma^\alpha_{\mu\lambda;\nu}\\
+&&-\left(-\delta\Gamma^\beta_{\mu\nu}\Gamma^\alpha_{\beta\lambda}+\delta\Gamma^\alpha_{\beta\nu}\Gamma^\beta_{\mu\lambda}+\delta\Gamma^\alpha_{\mu\beta}\Gamma^\beta_{\nu\lambda}\right)\\
+&&+\left(-\delta\Gamma^\beta_{\mu\lambda}\Gamma^\alpha_{\beta\nu}+\delta\Gamma^\alpha_{\beta\lambda}\Gamma^\beta_{\mu\nu}+\delta\Gamma^\alpha_{\mu\beta}\Gamma^\beta_{\lambda\nu}\right)\\
+&&+\delta\Gamma^\alpha_{\beta\nu}\Gamma^\beta_{\mu\lambda}-\delta\Gamma^\alpha_{\beta\lambda}\Gamma^\beta_{\mu\nu}
++\Gamma^\alpha_{\beta\nu}\delta\Gamma^\beta_{\mu\lambda}-\Gamma^\alpha_{\beta\lambda}\delta\Gamma^\beta_{\mu\nu}\\
+&=&-\delta\Gamma^\alpha_{\mu\nu;\lambda}+\delta\Gamma^\alpha_{\mu\lambda;\nu}
+\end{eqnarray*}
+Dieses Ergebnis erhält man auch einfacher, indem man ohne Einschränkung der Allgemeinheit annimmt, die Koordinaten seien  am Punkt $x$ Normalkoordinaten. Dann verschwinden dort die $\Gamma$ und wir erhalten:
+\begin{eqnarray*}
+\delta R^\alpha_{\mu\nu\lambda} &=& -\delta\Gamma^\alpha_{\mu\nu,\lambda}+\delta\Gamma^\alpha_{\mu\lambda,\nu}\\
+&&+\delta\Gamma^\alpha_{\beta\nu}\Gamma^\beta_{\mu\lambda}-\delta\Gamma^\alpha_{\beta\lambda}\Gamma^\beta_{\mu\nu}
++\Gamma^\alpha_{\beta\nu}\delta\Gamma^\beta_{\mu\lambda}-\Gamma^\alpha_{\beta\lambda}\delta\Gamma^\beta_{\mu\nu}\\
+&=& -\delta\Gamma^\alpha_{\mu\nu,\lambda}+\delta\Gamma^\alpha_{\mu\lambda,\nu}
+\end{eqnarray*}
+Da $\delta\Gamma^\alpha_{\mu\nu}$ aber, wie oben gezeigt, ein Tensor ist, gilt in Normalkoordinaten:
+\begin{eqnarray*}
+\delta R^\alpha_{\mu\nu\lambda} &=& -\delta\Gamma^\alpha_{\mu\nu,\lambda}+\delta\Gamma^\alpha_{\mu\lambda,\nu}
+=-\delta\Gamma^\alpha_{\mu\nu;\lambda}+\delta\Gamma^\alpha_{\mu\lambda;\nu}
+\end{eqnarray*}
+Letzteres ist aber eine Tensor-Gleichung und gilt unabhängig vom Koordinatensystem.
+Die Variation des Ricci-Tensors erhält man durch Kontraktion:
+\begin{eqnarray*}
+\delta R_{\mu\lambda}= \delta R^\nu_{\mu\nu\lambda}&=& -\delta\Gamma^\nu_{\mu\nu;\lambda}+\delta\Gamma^\nu_{\mu\lambda;\nu}
+\end{eqnarray*}
+und schließlich die Variation des Krümmungsskalars:
+\begin{eqnarray*}
+R &=& R_{\mu\lambda}g^{\mu\lambda}\\
+\delta R &=&\left( \delta R_{\mu\lambda}\right)g^{\mu\lambda}+R_{\mu\lambda}\delta g^{\mu\lambda}\\
+&=&\left( \delta R_{\mu\lambda}\right)g^{\mu\lambda}-R_{\mu\lambda}\delta g_{\alpha\beta}g^{\mu\alpha}g^{\lambda\beta}\\
+&=&\left(-\delta\Gamma^\nu_{\mu\nu;\lambda}+\delta\Gamma^\nu_{\mu\lambda;\nu}\right)g^{\mu\lambda}-R_{\mu\lambda}\delta g_{\alpha\beta}g^{\mu\alpha}g^{\lambda\beta}
+\end{eqnarray*}
+Da die kovariante Ableitung des metrischen Tensors $g^{\mu\lambda}$ verschwindet, kann der erste Ausdruck in eine Divergenz überführt werden:
+\begin{eqnarray*}
+\left(-\delta\Gamma^\nu_{\mu\nu;\lambda}+\delta\Gamma^\nu_{\mu\lambda;\nu}\right)g^{\mu\lambda}&=&\left(-g^{\mu\lambda}\delta\Gamma^\nu_{\mu\nu}+g^{\mu\nu}\delta\Gamma^\lambda_{\mu\nu}\right)_{;\lambda}
+\end{eqnarray*}
+Nun kann wegen \ref{riemann_gauss} der Satz von Gauß angewandt werden, denn
+\begin{eqnarray*}
+\sqrt{-g}F^\mu_{;\mu} &=& \left(\sqrt{-g}F^\mu\right)_{,\mu}
+\end{eqnarray*}
+Daher verschwindet das Integral über den ersten Ausdruck (bis auf Rand-Terme) und kann deswegen fallen gelassen werden.
+Wir schreiben also:
+\begin{eqnarray*}
+\delta R &=&-R_{\mu\lambda}\delta g_{\alpha\beta}g^{\mu\alpha}g^{\lambda\beta}
+\end{eqnarray*}
+Es bleibt die Variation $\delta\sqrt{-g}$ zu bestimmen:
+\begin{eqnarray*}
+\delta \sqrt{-g} &=& \frac{1}{2}\frac{1}{\sqrt{-g}}\delta(-g)\\
+-g-\delta g &=& -\det(g_{\mu\nu}+\delta g_{\mu\nu})\\
+&=&  -\det\left(g_{\mu\sigma}\left(\delta^\sigma_\nu+g^{\sigma\lambda}\delta g_{\lambda\nu}\right)\right)\\
+&=& -\det(g)\det\left(\delta^\sigma_\nu+g^{\sigma\lambda}\delta g_{\lambda\nu}\right)\\
+&=& -g\left(1+g^{\lambda\nu}\delta g_{\lambda\nu}\right)\\
+\delta(-g) &=& -gg^{\lambda\nu}\delta g_{\lambda\nu}\\
+\delta \sqrt{-g} &=& \frac{1}{2}\sqrt{-g}g^{\lambda\nu}\delta g_{\lambda\nu}
+\end{eqnarray*}
+Die Gesamtvariation ist dann:
+\begin{eqnarray*}
+\delta(\sqrt{-g}R) &=& \left(\delta(\sqrt{-g}\right)R+\sqrt{-g}\delta R\\
+&=& \sqrt{-g}\left(\frac{1}{2}g^{\lambda\nu}\delta g_{\lambda\nu}R-R_{\mu\lambda}\delta g_{\alpha\beta}g^{\mu\alpha}g^{\lambda\beta}\right)\\
+&=& \sqrt{-g}\left(\frac{1}{2}g^{\mu\nu}R-R^{\mu\nu}\right)\delta g_{\mu\nu}\\
+&=& -\sqrt{-g}G^{\mu\nu}\delta g_{\mu\nu}\\
+\delta\int\sqrt{-g}R\ d^4x &=& -\int \sqrt{-g}G^{\mu\nu}\delta g_{\mu\nu}\ d^4x
+\end{eqnarray*}
+Die Konstante $c$ in \ref{einst_hilbert} ist also $-1$. Der Vollständigkeit halber sei hier der Gesamtausdruck für die Variation gegeben:
+\begin{eqnarray}
+\label{R_variation}
+\delta(\sqrt{-g}R) &=& -\sqrt{-g}G^{\mu\nu}\delta g_{\mu\nu}+\left(\sqrt{-g}\left(-g^{\mu\lambda}\delta\Gamma^\nu_{\mu\nu}+g^{\mu\nu}\delta\Gamma^\lambda_{\mu\nu}\right)\right)_{,\lambda}
+\end{eqnarray}
+\end{subsection}
+\eeeccc
+
+\beginchap{Energie-Impuls-Tensor in der speziellen Relativitätstheorie anhand zweier Beispiele}
+\begin{subsection}{Skalares Feld}
+Wir untersuchen zunächst den allgemeinen Fall eines skalaren Feldes $\phi$, und eine Lagrangedichte $\mathcal{L}(\phi, \phi_{,\mu})$ welche nur von den ersten Ableitungen abhängt. Die Bewegungsgleichungen lauten dann
+\begin{eqnarray*}
+\frac{\partial \mathcal{L}}{\partial \phi}-\frac{\partial \mathcal{L}}{\partial \phi_{,\mu}} &=& 0
+\end{eqnarray*}
+Für ein Feld der 'Masse' $m$ ist die Lagrangedichte
+\begin{eqnarray}
+\label{lagr_scalar}
+\frac{1}{2}\left(\phi_{,\mu}\phi_{,\nu}\eta^{\mu\nu}+m^2\phi\phi\right)
+\end{eqnarray}
+und damit die Bewegungsgleichungen
+\begin{eqnarray}
+\label{scalar_motion}
+F &=& m^2\phi-\phi_{,\mu\nu}\eta^{\mu\nu} = 0
+\end{eqnarray}
+Der allgemeine kanonische Energie-Impuls-Tensor lautet
+\begin{eqnarray*}
+\Theta^\mu_\lambda &=& \frac{\partial \mathcal{L}}{\partial \phi_{,\mu}}\phi_{,\lambda}-\mathcal{L}\delta^\mu_\lambda
+\end{eqnarray*}
+Für unseren konkreten Fall heißt das:
+\begin{eqnarray*}
+\Theta^\mu_\lambda &=& \phi_{,\nu}\eta^{\nu\mu}\phi_{,\lambda}-\mathcal{L}\delta^\mu_\lambda
+\end{eqnarray*}
+Durch hochziehen von $\lambda$ entsteht ein symmetrischer Tensor:
+\begin{eqnarray}
+\label{scalar_energy_momentum_tensor}
+T^{\mu\nu} &=& \Theta^\mu_\lambda\eta^{\lambda\nu} = \phi_{,\alpha}\eta^{\alpha\mu}\phi_{,\lambda}\eta^{\lambda\nu}-\mathcal{L}\eta^{\mu\nu}
+\end{eqnarray}
+\end{subsection}
+
+\begin{subsection}{Elektromagnetisches Feld}
+Das elektromagnetische Feld hat die Lagrange-Dichte
+\begin{eqnarray}
+\label{electromagn_lagr}
+\mathcal{L}(A_{\mu,\nu}) &=& \frac{1}{4}F_{\mu\nu}F_{\alpha\beta}\eta^{\mu\alpha}\eta^{\nu\beta}\\
+F_{\mu\nu} &=& A_{\mu,\nu}-A_{\nu,\mu}
+\end{eqnarray}
+Und die Bewegungsgleichung lautet:
+\begin{eqnarray}
+\label{maxwell_affine}
+\left(\frac{\partial \mathcal{L}}{\partial A_{\mu,\nu}}\right)_{,\nu} &=& F^{\mu\nu}_{,\nu}=-F^\mu=0
+\end{eqnarray}
+Und für den kanonischen Energie-Impuls-Tensor erhalten wir
+\begin{eqnarray}
+\label{em_canonic_energy_momentum}
+\Theta^\mu_\lambda &=& \frac{\partial \mathcal{L}}{\partial A_{\alpha,\mu}}A_{\alpha,\lambda}-\mathcal{L}\delta^\mu_\lambda\\
+&=& F_{\beta\gamma}\eta^{\alpha\beta}\eta^{\gamma\mu}A_{\alpha,\lambda}-\mathcal{L}\delta^\mu_\lambda
+\end{eqnarray}
+Durch hochziehen ergibt das
+\begin{eqnarray*}
+\Theta^{\mu\nu} &=& F_{\beta\gamma}\eta^{\alpha\beta}\eta^{\gamma\mu}A_{\alpha,\lambda}\eta^{\lambda\nu}-\mathcal{L}\eta^{\mu\nu}
+\end{eqnarray*}
+einen asymmetrischen Tensor. Hingegen ist
+\begin{eqnarray}
+\label{em_energy_momentum}
+T^{\mu\nu} &=& F_{\beta\gamma}\eta^{\alpha\beta}\eta^{\gamma\mu}F_{\alpha\lambda}\eta^{\lambda\nu}-\mathcal{L}\eta^{\mu\nu}
+=F^{\nu\alpha}F^{\nu\beta}\eta_{\alpha\beta}-\mathcal{L}\eta^{\mu\nu}
+\end{eqnarray}
+sehr wohl symmetrisch.
+Nun lässt sich aber zeigen, dass der Symmetrisierungs-Term $\Delta^{\nu\sigma}=F^{\mu\nu}A_{\lambda,\mu}\eta^{\lambda\sigma}$ folgende Eigenschaften hat:
+\begin{eqnarray}
+\label{em_symmetry_term}
+\Delta^{\nu\sigma}_{,\nu} &=& 0\\
+\int \Delta^{0\sigma}\ d^3x &=& 0
+\end{eqnarray}
+\begin{proof}
+Zunächst gilt wegen den Bewegungsgleichungen $F^{\mu\nu}_{,\mu}=0$:
+\begin{eqnarray*}
+\Delta^{\nu\sigma}&=&F^{\mu\nu}A_{\lambda,\mu}\eta^{\lambda\sigma}\\
+&=&\left(F^{\mu\nu}A_{\lambda}\eta^{\lambda\sigma}\right)_{,\mu}-F^{\mu\nu}_{,\mu}A_{\lambda}\eta^{\lambda\sigma}=\left(F^{\mu\nu}A_{\lambda}\eta^{\lambda\sigma}\right)_{,\mu}
+\end{eqnarray*}
+Die erste Behauptung gilt, da
+\begin{eqnarray*}
+\Delta^{\nu\sigma}_{,\nu} &=& \left(F^{\mu\nu}A_{\lambda}\eta^{\lambda\sigma}\right)_{,\mu\nu} = 0
+\end{eqnarray*}
+wegen der Antisymmetrie von $F^{\mu\nu}$. Die zweite Behauptung gilt
+\begin{eqnarray*}
+\int \Delta^{0\sigma}\ d^3x &=& \int \left(F^{\mu 0}A_{\lambda}\eta^{\lambda\sigma}\right)_{,\mu}\ d^3x = \int \left(F^{00}A_{\lambda}\eta^{\lambda\sigma}\right)_{,0}\ d^3x+\int \left(F^{k0}A_{\lambda}\eta^{\lambda\sigma}\right)_{,k}\ d^3x
+\end{eqnarray*}
+da das erste Integral verschwindet denn $F^{00}=0$ und das zweite verschwindet, weil die Randterme verschwinden.
+\qed
+\end{proof}
+Daher erhalten wir:
+\begin{eqnarray*}
+\Theta^{\nu\sigma}_{,\nu} &=& T^{\nu\sigma}_{,\nu} = 0\\
+P^\sigma=\int \Theta^{0\sigma}\ d^3x &=& \int T^{0\sigma}\ d^3x 
+\end{eqnarray*}
+Das heißt, die globalen Werte für Energie $P^0$ und Impuls $P^k$ sind für $\Theta$ und $T$ gleich.
+\end{subsection}
+\eeeccc
+
+\beginchap{Das komplette Variatiations-Problem}
+\begin{subsection}{Grundsätzliches}
+Wir widmen uns nun dem Variationproblem zur Wirkung \ref{lagrange_total}
+\begin{eqnarray*}
+S &=& \int dx^0dx^1dx^2dx^3\ \sqrt{-g}\left(\mathcal{L}-\frac{1}{2\kappa}R\right)
+\end{eqnarray*}
+Dabei steht die Struktur von $\mathcal{L}$ noch nicht fest. Um aber zu Resultaten zu gelangen, die von der Wahl der Koordinaten unabhängig sind, sollte $\mathcal{L}$ ein echter Skalar sein. Wir haben mit \ref{R_variation} bereits die Variation von $\sqrt{-g}R$ berechnet:
+\begin{eqnarray*}
+\delta(\sqrt{-g}R) &=& -\sqrt{-g}G^{\mu\nu}\delta g_{\mu\nu}+\left(\sqrt{-g}\left(-g^{\mu\lambda}\delta\Gamma^\nu_{\mu\nu}+g^{\mu\nu}\delta\Gamma^\lambda_{\mu\nu}\right)\right)_{,\lambda}
+\end{eqnarray*}
+Es bleibt einen Ausdruck für $\delta(\sqrt{-g}\mathcal{L})$ zu finden. Diesen wollen wir für die obigen Beispiele ermitteln.
+Allgemein gilt
+\begin{eqnarray*}
+\delta(\sqrt{-g}\mathcal{L}) &=& \sqrt{-g}\left(\frac{1}{2}g^{\mu\nu}\delta g_{\mu\nu}\mathcal{L}+\delta \mathcal{L}\right)
+\end{eqnarray*}
+\end{subsection}
+
+\begin{subsection}{Skalares Feld der Masse $m$}
+Wir rekapitulieren die Lagrangedichte \ref{lagr_scalar}
+\begin{eqnarray*}
+\mathcal{L} &=& \frac{1}{2}\left(\phi_{,\mu}\phi_{,\nu}g^{\mu\nu}+m^2\phi\phi\right)
+\end{eqnarray*}
+Wobei wir $\eta^{\mu\nu}$ durch $g^{\mu\nu}$ ersetzt haben und dadurch einen allgemein kovarianten Ausdruck erhalten. Wir berechnen
+\begin{eqnarray*}
+\delta \mathcal{L} &=& \frac{1}{2}\phi_{,\mu}\phi_{,\nu}\delta g^{\mu\nu}+\phi_{,\mu}g^{\mu\nu}\delta\phi_{,\nu}+m^2\phi\delta\phi\\
+&=& -\frac{1}{2}\phi_{,\mu}\phi_{,\nu}g^{\mu\alpha}g^{\nu\beta}\delta g_{\alpha\beta}+\phi_{,\mu}g^{\mu\nu}\delta\phi_{,\nu}+m^2\phi\delta\phi
+\end{eqnarray*}
+und erhalten
+\begin{eqnarray*}
+\delta (\sqrt{-g}\mathcal{L}) &=& \sqrt{-g}\left(\frac{1}{2}g^{\mu\nu}\delta g_{\mu\nu}\mathcal{L}-\frac{1}{2}\phi_{,\mu}\phi_{,\nu}g^{\mu\alpha}g^{\nu\beta}\delta g_{\alpha\beta}+\phi_{,\mu}g^{\mu\nu}\delta\phi_{,\nu}+m^2\phi\delta\phi\right)\\
+&=& \sqrt{-g}\left(-\frac{1}{2}\left(\phi_{,\mu}\phi_{,\nu}g^{\mu\alpha}g^{\nu\beta}-g^{\alpha\beta}\mathcal{L}\right)\delta g_{\alpha\beta}+\phi_{,\mu}g^{\mu\nu}\delta\phi_{,\nu}+m^2\phi\delta\phi\right)\\
+&=& \sqrt{-g}\left(-\frac{1}{2}T^{\alpha\beta}\delta g_{\alpha\beta}+\phi_{,\mu}g^{\mu\nu}\delta\phi_{,\nu}+m^2\phi\delta\phi\right)
+\end{eqnarray*}
+Wobei hier
+\begin{eqnarray*}
+T^{\alpha\beta} &=& \phi_{,\mu}\phi_{,\nu}g^{\mu\alpha}g^{\nu\beta}-g^{\alpha\beta}\mathcal{L}
+\end{eqnarray*}
+den symmetrische Energie-Impuls-Tensor \ref{scalar_energy_momentum_tensor} in allgemein kovarianter Form bedeudet.
+Nun widmen wir uns dem Term $\phi_{,\mu}g^{\mu\nu}\delta\phi_{,\nu}$:
+\begin{eqnarray*}
+\sqrt{-g}\phi_{,\mu}g^{\mu\nu}\delta\phi_{,\nu} &=& \sqrt{-g}\left(\left(\phi_{,\mu}g^{\mu\nu}\delta\phi\right)_{;\nu}-\left(\phi_{,\mu}g^{\mu\nu}\right)_{;\nu}\delta\phi\right)\\
+&=& \left(\sqrt{-g}\phi_{,\mu}g^{\mu\nu}\delta\phi\right)_{,\nu}+\sqrt{-g}\left(-\left(\phi_{,\mu}g^{\mu\nu}\right)_{;\nu}\delta\phi\right)
+\end{eqnarray*}
+und erhalten
+\begin{eqnarray*}
+\delta (\sqrt{-g}\mathcal{L}) &=& \sqrt{-g}\left(-\frac{1}{2}T^{\alpha\beta}\delta g_{\alpha\beta}-\left(\phi_{,\mu}g^{\mu\nu}\right)_{;\nu}\delta\phi+m^2\phi\delta\phi\right)+\left(\sqrt{-g}\phi_{,\mu}g^{\mu\nu}\delta\phi\right)_{,\nu}\\
+&=& \sqrt{-g}\left(-\frac{1}{2}T^{\alpha\beta}\delta g_{\alpha\beta}+\left(m^2\phi-\left(\phi_{,\mu}g^{\mu\nu}\right)_{;\nu}\right)\delta\phi\right)+\left(\sqrt{-g}\phi_{,\mu}g^{\mu\nu}\delta\phi\right)_{,\nu}\\
+&=& \sqrt{-g}\left(-\frac{1}{2}T^{\alpha\beta}\delta g_{\alpha\beta}+F\delta\phi\right)+\left(\sqrt{-g}\phi_{,\mu}g^{\mu\nu}\delta\phi\right)_{,\nu}
+\end{eqnarray*}
+mit der allgemein kovarianten Variante der Bewegungsgleichung \ref{scalar_motion}
+\begin{eqnarray*}
+F &=& m^2\phi-\left(\phi_{,\mu}g^{\mu\nu}\right)_{;\nu}= m^2\phi-\phi_{;\mu\nu}g^{\mu\nu} =0
+\end{eqnarray*}
+\end{subsection}
+
+
+\begin{subsection}{Elektromagnetisches Feld}
+Wir gehen von \ref{electromagn_lagr} aus
+\begin{eqnarray*}
+\mathcal{L} &=& \frac{1}{4}F_{\mu\nu}F_{\alpha\beta}g^{\mu\alpha}g^{\nu\beta}\\
+F_{\mu\nu} &=& A_{\mu;\nu}-A_{\nu;\mu}=A_{\mu,\nu}-A_{\nu,\mu}
+\end{eqnarray*}
+und Rechnen
+\begin{eqnarray*}
+\delta\mathcal{L} &=& \frac{1}{2}F_{\mu\nu}F_{\alpha\beta}g^{\mu\alpha}\delta g^{\nu\beta}+F_{\mu\nu}g^{\mu\alpha}g^{\nu\beta}\delta A_{\alpha;\beta}\\
+&=& -\frac{1}{2}F_{\mu\nu}F_{\alpha\beta}g^{\mu\alpha}g^{\nu\sigma}g^{\beta\tau}\delta g_{\sigma\tau}+\left(F_{\mu\nu}g^{\mu\alpha}g^{\nu\beta}\delta A_\alpha\right)_{;\beta}-\left(F_{\mu\nu}g^{\mu\alpha}g^{\nu\beta}\right)_{;\beta}\delta A_\alpha\\
+&=& -\frac{1}{2}F^{\mu\alpha}F^{\nu\beta}g_{\alpha\beta}\delta g_{\mu\nu}-F^{\mu\nu}_{;\nu}\delta A_\mu+\left(F^{\mu\nu}\delta A_\mu\right)_{;\nu}\\
+\delta\left(\sqrt{-g}\mathcal{L}\right) &=&\sqrt{-g}\left(\frac{1}{2}\left(g^{\mu\nu}\mathcal{L}-F^{\mu\alpha}F^{\nu\beta}g_{\alpha\beta}\right)\delta g_{\mu\nu}-F^{\mu\nu}_{;\nu}\delta A_\mu\right)+\left(\sqrt{-g}F^{\mu\nu}\delta A_\mu\right)_{,\nu}\\
+&=&\sqrt{-g}\left(-\frac{1}{2}T^{\mu\nu}\delta g_{\mu\nu}+F^\mu\delta A_\mu\right)+\left(\sqrt{-g}F^{\mu\nu}\delta A_\mu\right)_{,\nu}
+\end{eqnarray*}
+Mit
+\begin{eqnarray*}
+T^{\mu\nu} &=& F^{\mu\alpha}F^{\nu\beta}g_{\alpha\beta}-g^{\mu\nu}\mathcal{L}
+\end{eqnarray*}
+, der allgemein kovarianten Version des symmetrisierten Energie-Impuls-Tensors \ref{em_energy_momentum} und
+\begin{eqnarray*}
+F^\mu &=& -F^{\mu\nu}_{;\nu}
+\end{eqnarray*}
+, der allgemein kovarianten Version der Bewegungsgleichungen (Vakuum-Maxwell-Gleichungen) \ref{maxwell_affine}
+\end{subsection}
+
+\begin{subsection}{Allgemeines Schema}
+Wir vermuten nun, dass allgemein gilt
+\begin{eqnarray*}
+\delta \left(\sqrt{-g}\mathcal{L}\right)&=& \sqrt{-g}\left(-\frac{1}{2}T^{\mu\nu}\delta g_{\mu\nu}+F\delta\phi\right)+X^\mu_{,\mu}
+\end{eqnarray*}
+und das somit \ref{total_variation_integral} 
+\begin{eqnarray*}
+\delta S &=& \int dx^0dx^1dx^2dx^3\ \sqrt{-g}\left(\frac{1}{2}\left(-T^{\mu\nu}+\frac{1}{\kappa}G^{\mu\nu}\right)\delta g_{\mu\nu}+F\delta\phi\right)
+\end{eqnarray*}
+für die totale Wirkung \ref{lagrange_total}
+\begin{eqnarray*}
+S &=& \int dx^0dx^1dx^2dx^3\ \sqrt{-g}\left(\mathcal{L}-\frac{1}{2\kappa}R\right)
+\end{eqnarray*}
+Weiter ist
+\begin{eqnarray}
+\label{abstract_total_variation}
+\delta \left(\sqrt{-g}\left(\mathcal{L}-\frac{1}{2\kappa}R\right)\right) &=&\sqrt{-g}\left(\frac{1}{2}\left(-T^{\mu\nu}+\frac{1}{\kappa}G^{\mu\nu}\right)\delta g_{\mu\nu}+F\delta\phi\right)\cr
+&&-\frac{1}{2\kappa}\left(\sqrt{-g}\left(-g^{\mu\lambda}\delta\Gamma^\nu_{\mu\nu}+g^{\mu\nu}\delta\Gamma^\lambda_{\mu\nu}\right)\right)_{,\lambda}+X^\mu_{,\mu}\cr
+&=&\sqrt{-g}\left(\frac{1}{2}\left(-T^{\mu\nu}+\frac{1}{\kappa}G^{\mu\nu}\right)\delta g_{\mu\nu}+F\delta\phi\right)\cr
+&&\left(-\frac{1}{2\kappa}\left(\sqrt{-g}\left(-g^{\mu\lambda}\delta\Gamma^\nu_{\mu\nu}+g^{\mu\nu}\delta\Gamma^\lambda_{\mu\nu}\right)\right)+X^\lambda\right)_{,\lambda}
+\end{eqnarray}
+wobei wir \ref{R_variation} benutzt haben. $F\delta\phi$ ist abstrakt zu verstehen und hängt genau wie $X$ von der kontreten Struktur von $\mathcal{L}$ ab.
+\end{subsection}
+\eeeccc
+
+\beginchap{Globale Erhaltungsgrößen in der allgemeinen Relativitätstheorie}
+\begin{subsection}{Noethers Theorem in der allgemeinen Relativitätstheorie}
+Unter der Bedingung, dass eine infinitesimale Transformation alle beteiligten Felder, also auch die Metrik transformiert:
+\begin{eqnarray*}
+g_{\mu\nu}(x) &\mapsto& g_{\mu\nu}(\epsilon,x)\\
+\phi(x) &\mapsto& g\phi(\epsilon,x)
+\end{eqnarray*}
+und dass die globale Topologie asymptotisch flach ist, so dass ein einziges Koordinatensystem den ganzen Raum überdeckt, 
+und dass zusätzlich
+\begin{eqnarray*}
+\frac{d}{d\epsilon}\left(\sqrt{-g}\left(\mathcal{L}-\frac{1}{2\kappa}R\right)\right|_{\epsilon=0} &=& D^\mu_{,\mu}
+\end{eqnarray*}
+ gilt, dann lässt sich eine globale Erhaltungsgröße definieren.
+Wir definieren
+\begin{eqnarray*}
+\tilde{\mathcal{L}} &=& \sqrt{-g}\left(\mathcal{L}-\frac{1}{2\kappa}R\right)
+\end{eqnarray*}
+und schreiben \ref{abstract_total_variation}
+\begin{eqnarray*}
+\delta \tilde{\mathcal{L}}&=&\sqrt{-g}\left(\frac{1}{2}\left(-T^{\mu\nu}+\frac{1}{\kappa}G^{\mu\nu}\right)\delta g_{\mu\nu}+F\delta\phi\right)\cr
+&&\left(-\frac{1}{2\kappa}\left(\sqrt{-g}\left(-g^{\mu\lambda}\delta\Gamma^\nu_{\mu\nu}+g^{\mu\nu}\delta\Gamma^\lambda_{\mu\nu}\right)\right)+X^\lambda\right)_{,\lambda}
+\end{eqnarray*}
+wobei $\delta$ nun die Bedeutung
+\begin{eqnarray*}
+\delta(Y) &=& \frac{d}{d\epsilon}\left(Y\right|_{\epsilon=0}
+\end{eqnarray*}
+hat. Unter der Voraussetzung, dass die Felder die Bewegungsgleichungen erfüllen, wird daraus
+\begin{eqnarray*}
+\delta \tilde{\mathcal{L}}&=&\left(-\frac{1}{2\kappa}\left(\sqrt{-g}\left(-g^{\mu\lambda}\delta\Gamma^\nu_{\mu\nu}+g^{\mu\nu}\delta\Gamma^\lambda_{\mu\nu}\right)\right)+X^\lambda\right)_{,\lambda} =D^\mu_{,\mu}
+\end{eqnarray*}
+oder
+\begin{eqnarray*}
+\left(-\frac{1}{2\kappa}\left(\sqrt{-g}\left(-g^{\mu\lambda}\delta\Gamma^\nu_{\mu\nu}+g^{\mu\nu}\delta\Gamma^\lambda_{\mu\nu}\right)\right)+X^\lambda-D^\lambda\right)_{,\lambda} = 0
+\end{eqnarray*}
+mit
+\begin{eqnarray}
+\label{gen_current}
+j^\lambda &=& -\frac{1}{2\kappa}\left(\sqrt{-g}\left(-g^{\mu\lambda}\delta\Gamma^\nu_{\mu\nu}+g^{\mu\nu}\delta\Gamma^\lambda_{\mu\nu}\right)\right)+X^\lambda-D^\lambda
+\end{eqnarray}
+erhalten wir die globale Erhaltungsgröße
+\begin{eqnarray*}
+Q &=& \int dx^1dx^2dx^3\ j^0
+\end{eqnarray*}
+\end{subsection}
+
+\begin{subsection}{Energie und Impuls in der allgemeinen Relativitätstheorie}
+\begin{subsubsection}{kanonischer Energie-Impuls-Tensor nach Noether}
+Für
+\begin{eqnarray*}
+\delta(Y) &=& Y_{,\tau}
+\end{eqnarray*}
+erhalten wir die Erhaltungssätze für Energie ($\tau=0$) und Impuls $P_k$ ($\tau=k$).
+Um konkrete Ausdrücke zu erhalten, brauchen wir die $X^\lambda$. Für das skalare Feld heißt das
+\begin{eqnarray*}
+X^\lambda_\tau &=& \sqrt{-g}\phi_{,\mu}g^{\mu\lambda}\phi_{,\tau}=\sqrt{-g}\left(\Theta^\lambda_\tau+\mathcal{L}\delta^\lambda_\tau\right)
+\end{eqnarray*}
+und für das elektromagnetische Feld ist das
+\begin{eqnarray*}
+X^\lambda_\tau &=& \sqrt{-g}F^{\mu\lambda}A_{\mu,\tau}=\sqrt{-g}\left(\Theta^\lambda_\tau+\mathcal{L}\delta^\lambda_\tau\right)
+\end{eqnarray*}
+so erhalten wir den kanonischen Energie-Impuls-Tensor für das Gesamtsystem analog zu \ref{gen_current}:
+\begin{eqnarray}
+\label{canonic_tensor}
+\mathfrak{T}^\lambda_\tau &=& -\frac{1}{2\kappa}\left(\sqrt{-g}\left(-g^{\mu\lambda}\Gamma^\nu_{\mu\nu,\tau}+g^{\mu\nu}\Gamma^\lambda_{\mu\nu,\tau}\right)\right)+X^\lambda_\tau-\tilde{\mathcal{L}}\delta^\lambda_\tau\cr
+&=& \sqrt{-g}\left(\frac{1}{2\kappa}\left(g^{\mu\lambda}\Gamma^\nu_{\mu\nu,\tau}-g^{\mu\nu}\Gamma^\lambda_{\mu\nu,\tau}+R\delta^\lambda_\tau\right)+\Theta^\lambda_\tau\right)
+\end{eqnarray}
+und damit auch den Energie-Impuls-Vektor
+\begin{eqnarray*}
+P_\tau &=& \int dx^1dx^2dx^3\ \mathfrak{T}^0_\tau 
+\end{eqnarray*}
+\end{subsubsection}
+
+\begin{subsubsection}{Verallgemeinerter kanonischer Enerie-Impuls-Tensor}
+Der Tensor \ref{canonic_tensor} hängt über $\Theta^\lambda_\tau$ von der konkreten Form von $\mathcal{L}$, der Lagrange-'Dichte' für Materie und Felder ab. Im konkreten Fall skalarer Felder ist dieser gleich
+\begin{eqnarray*}
+\Theta^\lambda_\tau &=& T^{\lambda\nu}g_{\tau\nu}
+\end{eqnarray*}
+Wobei $T^{\lambda\nu}g$ der symmetrische Energie-Impuls-Tensor ist, wie er auch in die Einsteinschen Gleichungen
+\begin{eqnarray*}
+G^{\lambda\nu} &=& \kappa T^{\lambda\nu}
+\end{eqnarray*}
+eingeht. Daher ist es zumindest für diesen konkreten Fall legitim
+\begin{eqnarray*}
+\Theta^\lambda_\tau &=& \frac{1}{\kappa}G^\lambda_\tau
+\end{eqnarray*}
+zu setzen. Daher wird \ref{canonic_tensor}:
+\begin{eqnarray}
+\label{canonic_energy_momentum_density}
+\mathfrak{T}^\lambda_\tau &=& \sqrt{-g}\left(\frac{1}{2\kappa}\left(g^{\mu\lambda}\Gamma^\nu_{\mu\nu,\tau}-g^{\mu\nu}\Gamma^\lambda_{\mu\nu,\tau}+R\delta^\lambda_\tau\right)+\frac{1}{\kappa}G^\lambda_\tau\right)\cr
+&=& \frac{1}{\kappa}\sqrt{-g}\left(\frac{1}{2}\left(g^{\mu\lambda}\Gamma^\nu_{\mu\nu,\tau}-g^{\mu\nu}\Gamma^\lambda_{\mu\nu,\tau}+R\delta^\lambda_\tau\right)+G^\lambda_\tau\right)\cr
+&=& \frac{1}{\kappa}\sqrt{-g}\left(\frac{1}{2}\left(g^{\mu\lambda}\Gamma^\nu_{\mu\nu,\tau}-g^{\mu\nu}\Gamma^\lambda_{\mu\nu,\tau}\right)+R^\lambda_\tau\right)
+\end{eqnarray}
+Wobei $R^\lambda_\tau$ der gemischte Ricci-Tensor ist. Für den Fall des skalaren Feldes geht die Divergenzfreiheit
+\begin{eqnarray*}
+\left(\frac{1}{\kappa}\sqrt{-g}\left(\frac{1}{2}\left(g^{\mu\lambda}\Gamma^\nu_{\mu\nu,\tau}-g^{\mu\nu}\Gamma^\lambda_{\mu\nu,\tau}\right)+R^\lambda_\tau\right)\right)_{,\lambda} &=& \mathfrak{T}^\lambda_{\tau,\lambda} =0
+\end{eqnarray*}
+direkt aus der Konstruktion mittels Noethers Theorem hervor. Diese gilt aber allgemein. Für den Fall des elektromagnetischen Feldes
+hingegen haben wir den kanonischen Energie-Impuls-Tensor \ref{em_canonic_energy_momentum}
+\begin{eqnarray*}
+\Theta^\mu_\lambda &=& F^{\alpha\mu}A_{\alpha,\lambda}-\mathcal{L}\delta^\mu_\lambda
+\end{eqnarray*}
+Der swymmetrische Energie-Impuls-Tensor, der auch in die Einsteinsche Gleichung $G^{\mu\nu}=\kappa T^{\mu\nu}$ eingeht, lautet in gemischter Form:
+\begin{eqnarray*}
+T^\mu_\lambda &=& F^{\alpha\mu}F_{\alpha\lambda}-\mathcal{L}\delta^\mu_\lambda= F^{\alpha\mu}\left(A_{\alpha;\lambda}-A_{\lambda;\alpha}\right)-\mathcal{L}\delta^\mu_\lambda
+= F^{\alpha\mu}\left(A_{\alpha,\lambda}-A_{\lambda,\alpha}\right)-\mathcal{L}\delta^\mu_\lambda
+\end{eqnarray*}
+Die Differenz
+\begin{eqnarray*}
+\Delta^\mu_\lambda &=& \Theta^\mu_\lambda-T^\mu_\lambda\\
+&=& F^{\alpha\mu}A_{\lambda,\alpha}
+\end{eqnarray*}
+erfüllt die Bedingungen 
+\begin{eqnarray*}
+\left(\sqrt{-g}\Delta^\mu_\lambda\right)_{,\mu} &=& 0\\
+\int \sqrt{-g}\Delta^0_\lambda\ d^3x &=& 0
+\end{eqnarray*}
+erfüllen.
+\begin{proof}
+Wir formen um:
+\begin{eqnarray*}
+\sqrt{-g}\Delta^\mu_\lambda &=& \sqrt{-g}F^{\alpha\mu}A_{\lambda,\alpha}\\
+&=& \left(\sqrt{-g}F^{\alpha\mu}A_\lambda\right)_{,\alpha}
+-\sqrt{-g}\left(\frac{1}{2}g^{\sigma\tau}g_{\sigma\tau,\alpha}F^{\alpha\mu}A_\lambda+F^{\alpha\mu}_{,\alpha}A_\lambda\right)
+\end{eqnarray*}
+Nun gelten die Vakuum-Maxwell-Gleichungen $F^{\alpha\mu}_{;\alpha}=0$:
+\begin{eqnarray*}
+F^{\alpha\beta}_{;\alpha} &=& F^{\alpha\beta}_{,\alpha}+\Gamma^\alpha_{\alpha\sigma}F^{\sigma\beta}+\Gamma^\beta_{\alpha\sigma}F^{\alpha\sigma}\\
+&=&F^{\alpha\beta}_{,\alpha}+\Gamma^\alpha_{\alpha\sigma}F^{\sigma\beta}\\
+&=&F^{\alpha\beta}_{,\alpha}+\frac{1}{2}g^{\sigma\tau}g_{\sigma\tau,\alpha}F^{\alpha\beta}\\
+F^{\alpha\beta}_{,\alpha}&=&F^{\alpha\beta}_{;\alpha}-\frac{1}{2}g^{\sigma\tau}g_{\sigma\tau,\alpha}F^{\alpha\beta}\\
+&=&-\frac{1}{2}g^{\sigma\tau}g_{\sigma\tau,\alpha}F^{\alpha\beta}\\
+F^{\alpha 0}_{,\alpha}A_\lambda&=&-\frac{1}{2}g^{\sigma\tau}g_{\sigma\tau,\alpha}F^{\alpha 0}A_\lambda
+\end{eqnarray*}
+Das heißt es gilt
+\begin{eqnarray*}
+\sqrt{-g}\Delta^\mu_\lambda &=& \left(\sqrt{-g}F^{\alpha\mu}A_\lambda\right)_{,\alpha}
+\end{eqnarray*}
+Womit sich die beiden zu beweisenden Bedingungen ergeben:
+\begin{eqnarray*}
+\left(\sqrt{-g}\Delta^\mu_\lambda\right)_{,\mu} &=& \left(\sqrt{-g}F^{\alpha\mu}A_\lambda\right)_{,\alpha\mu}=0
+\end{eqnarray*}
+denn $F^{\alpha\mu}$ ist antisymmetrisch.
+\begin{eqnarray*}
+\int \sqrt{-g}\Delta^0_\lambda dx^1dx^2dx^3 &=& \int \left(\sqrt{-g}F^{\alpha 0}A_\lambda\right)_{,\alpha} dx^1dx^2dx^3\\
+&=& \int \left(\sqrt{-g}F^{k0}A_\lambda\right)_{,k} dx^1dx^2dx^3 = 0
+\end{eqnarray*}
+Wobei $k=1,2,3$ nur über die drei Raumkoordinaten läuft, denn $F^{00}=0$. Daher haben wir ein Integral über eine Divergenz. Da wir aber annehmen, dass $F^{k0}$ im unendlichen verschwinden, ergibt das Integral Null.
+\qed
+\end{proof}
+Die Tensor-Dichte \ref{canonic_energy_momentum_density} beschreibt in allen Fällen vier Erhaltungsgrössen
+\begin{eqnarray*}
+P_\lambda &=& \int \sqrt{-g}T^0_\lambda dx^1dx^2dx^3 =\int \mathfrak{T}^0_\lambda dx^1dx^2dx^3 
+\end{eqnarray*}
+
+\end{subsubsection}
+
+\begin{subsubsection}{Landau-Lifschitz Pseudotensor}
+\begin{paragraph}{Definition}
+Es gibt eine berühmter Ansatz, der einen symmetrischen (pseudo)-Tensor für den totalen Energie-Impuls-Vektor liefert.
+\begin{eqnarray*}
+t^{\mu\nu} &=& -\frac{1}{\kappa}G^{\mu\nu}+\frac{1}{2\kappa(-g)}\left((-g)\left(g^{\mu\nu}g^{\alpha\beta}-g^{\alpha\mu}g^{\beta\nu}\right)\right)_{,\alpha\beta}
+\end{eqnarray*}
+$t^{\mu\nu}$ hat folgende Eigenschaften:
+\begin{enumerate}
+	\item $((-g)(t^{\mu\nu}+T^{\mu\nu}))_{,\mu}=0$.
+	\item $t^{\mu\nu}$ enthält keine zweiten Ableitungen der $g_{\mu\nu,\alpha\beta}$.
+	\item $t^{\mu\nu}=t^{\nu\mu}$.
+	\item $t_{\mu\nu}$ wird ausschließlich durch $g_{\mu\nu}$ und deren erste Ableitungen gebildet.
+\end{enumerate}
+Dadurch kann ein totaler Energie-Impuls-Vektor definiert werden, dessen Zeit-Ableitung verschwindet:
+\begin{eqnarray*}
+P^ \mu &=& \int dx^1dx^2dx^3\ (-g)(t^{\mu 0}+T^{\mu 0})
+\end{eqnarray*}
+\end{paragraph}
+
+\begin{paragraph}{$t^{\mu\nu}$ enthält keine zweiten Ableitungen}
+Im Abschnitt \ref{tens2_terms} sind alle Terme von der Form $X_{\mu\lambda}$ die aus ersten und zweiten Ableitungen bestehen aufgelistet.
+Da wir uns nur für zweite Ableitungen interessieren, konnen nur die folgenden 4 Terme in Frage:
+\begin{eqnarray*}
+a^1_{\mu\lambda} &=& g^{\sigma\tau}g_{\mu\lambda,\sigma\tau}\\
+a^2_{\mu\lambda} &=& g^{\sigma\tau}g_{\sigma\tau,\mu\lambda}\\
+b^1_{\mu\lambda} &=& g^{\sigma\tau}g_{\mu\sigma,\lambda\tau}\\
+b^2_{\mu\lambda} &=& g^{\sigma\tau}g_{\lambda\sigma,\mu\tau}=b^1_{\lambda\mu}
+\end{eqnarray*}
+Ferner gibt es zwei skalare Terme die zweite Ableitungen enthalten:
+\begin{eqnarray*}
+A &=& g^{\alpha\beta}g^{\mu\nu}g_{\alpha\beta,\mu\nu}\\
+B &=& g^{\alpha\mu}g^{\beta\nu}g_{\alpha\beta,\mu\nu}
+\end{eqnarray*}
+die nach Multiplikation mit $g_{\mu\lambda}$ in die selbe Form gebracht werden können. Durch Hochziehen der Indizes erhalten wir
+Terme wie wir sie für unseren Beweis brauchen. Wir bezeichnen sie entsprechend mit $X^{\mu\nu}=g^{\mu\alpha}g^{\nu\beta}X_{\alpha\beta}$.
+Wir extrahieren nun die Terme zweiter Ableitungen aus $G^{\mu\nu}$ und $\frac{1}{-g}\left((-g)\left(g^{\mu\nu}g^{\alpha\beta}-g^{\alpha\mu}g^{\beta\nu}\right)\right)_{,\alpha\beta}$. Da $G^{\mu\nu}=R^{\mu\nu}-\frac{1}{2}Rg^{\mu\nu}$ ist, widmen wir uns zuerst dem Ricci-Tensor $R^{\mu\nu}$:
+\begin{eqnarray*}
+R_{\mu\lambda} &=& -\Gamma^\nu_{\mu\nu,\lambda}+\Gamma^\nu_{\beta\lambda}\Gamma^\beta_{\mu\nu}
++\Gamma^\nu_{\mu\lambda,\nu}-\Gamma^\nu_{\beta\nu}\Gamma^\beta_{\mu\lambda}\\
+&=& -\Gamma^\nu_{\mu\nu,\lambda}+\Gamma^\nu_{\mu\lambda,\nu}+...\\
+&=& -\left(g^{\nu\sigma}\Gamma_{\mu\nu\sigma}\right)_{,\lambda}+\left(g^{\nu\sigma}\Gamma_{\mu\lambda\sigma}\right)_{,\nu}+...\\
+&=& -g^{\nu\sigma}\Gamma_{\mu\nu\sigma,\lambda}+g^{\nu\sigma}\Gamma_{\mu\lambda\sigma,\nu}+...\\
+&=& \frac{1}{2}\left(-g^{\nu\sigma}(g_{\sigma\nu,\mu\lambda}+g_{\mu\sigma,\nu\lambda}-g_{\mu\nu,\sigma\lambda}\right)
++g^{\nu\sigma}\left(g_{\sigma\lambda,\mu\nu}+g_{\mu\sigma,\lambda\nu}-g_{\mu\lambda,\sigma\nu}\right)+...\\
+&=&\frac{1}{2}\left(-a^2_{\mu\lambda}-b^1_{\mu\lambda}+b^1_{\mu\lambda}+b^2_{\mu\lambda}+b^1_{\mu\lambda}-a^1_{\mu\lambda}\right)+...\\
+&=&\frac{1}{2}\left(-a^1_{\mu\lambda}-a^2_{\mu\lambda}+b^1_{\mu\lambda}+b^2_{\mu\lambda}\right)+...\\
+R &=& -A+B+...\\
+G_{\mu\lambda} &=&\frac{1}{2}\left(-a^1_{\mu\lambda}-a^2_{\mu\lambda}+b^1_{\mu\lambda}+b^2_{\mu\lambda}+\left(A-B\right)g_{\mu\lambda}\right)+...\\
+G^{\mu\lambda} &=&\frac{1}{2}\left(-a^{1 \mu\lambda}-a^{2 \mu\lambda}+b^{1 \mu\lambda}+b^{2\mu\lambda}+\left(A-B\right)g^{\mu\lambda}\right)+...
+\end{eqnarray*}
+Nun zu $\frac{1}{-g}\left((-g)\left(g^{\mu\nu}g^{\alpha\beta}-g^{\alpha\mu}g^{\beta\nu}\right)\right)_{,\alpha\beta}$
+zunächst $\left(g^{\mu\nu}g^{\alpha\beta}-g^{\alpha\mu}g^{\beta\nu}\right)_{,\alpha\beta}$ :
+\begin{eqnarray*}
+\left(g^{\mu\nu}g^{\alpha\beta}-g^{\alpha\mu}g^{\beta\nu}\right)_{,\alpha\beta}&=&
+g^{\mu\nu}_{,\alpha\beta}g^{\alpha\beta}+g^{\mu\nu}g^{\alpha\beta}_{,\alpha\beta}-g^{\alpha\mu}_{,\alpha\beta}g^{\beta\nu}-g^{\alpha\mu}g^{\beta\nu}_{,\alpha\beta}
+\end{eqnarray*}
+es gilt
+\begin{eqnarray*}
+g^{\mu\nu}_{,\alpha\beta} &=& -\left(g^{\mu\sigma}g^{\nu\tau}g_{\sigma\tau,\alpha}\right)_{,\beta}=-g^{\mu\sigma}g^{\nu\tau}g_{\sigma\tau,\alpha\beta}+...
+\end{eqnarray*}
+und somit
+\begin{eqnarray*}\left(g^{\mu\nu}g^{\alpha\beta}-g^{\alpha\mu}g^{\beta\nu}\right)_{,\alpha\beta}+...
+&=&g^{\mu\nu}_{,\alpha\beta}g^{\alpha\beta}+g^{\mu\nu}g^{\alpha\beta}_{,\alpha\beta}-g^{\alpha\mu}_{,\alpha\beta}g^{\beta\nu}-g^{\alpha\mu}g^{\beta\nu}_{,\alpha\beta}+...\\
+&=&-g^{\mu\sigma}g^{\nu\tau}g_{\sigma\tau,\alpha\beta}g^{\alpha\beta}-g^{\mu\nu}g^{\alpha\sigma}g^{\beta\tau}g_{\sigma\tau,\alpha\beta}+...\\
+&&+g^{\alpha\sigma}g^{\mu\tau}g_{\sigma\tau,\alpha\beta}g^{\beta\nu}+g^{\alpha\mu}g^{\beta\sigma}g^{\nu\tau}g_{\sigma\tau,\alpha\beta}+...\\
+&=& -a^{1 \mu\nu}-Bg^{\mu\nu}+b^{1 \mu\nu}+b^{2 \mu\nu}
+\end{eqnarray*}
+es fehlt
+\begin{eqnarray*}
+(-g)_{,\alpha\beta}\left(g^{\mu\nu}g^{\alpha\beta}-g^{\alpha\mu}g^{\beta\nu}\right)
+\end{eqnarray*}
+für den ersten Faktor erhalten wir:
+\begin{eqnarray*}
+-g_{,\alpha\beta} &=& \left((-g)g^{\sigma\tau}g_{\sigma\tau,\alpha}\right)_{,\beta}=(-g)g^{\sigma\tau}g_{\sigma\tau,\alpha\beta}+...
+\end{eqnarray*}
+also
+\begin{eqnarray*}
+(-g)_{,\alpha\beta}\left(g^{\mu\nu}g^{\alpha\beta}-g^{\alpha\mu}g^{\beta\nu}\right)
+&=& (-g)g^{\sigma\tau}g_{\sigma\tau,\alpha\beta}\left(g^{\mu\nu}g^{\alpha\beta}-g^{\alpha\mu}g^{\beta\nu}\right)+...\\
+&=& (-g)\left(Ag^{\mu\nu}-a^{2 \mu\nu}\right)+...
+\end{eqnarray*}
+Wir fassen zusammen:
+\begin{eqnarray*}
+\left((-g)\left(g^{\mu\nu}g^{\alpha\beta}-g^{\alpha\mu}g^{\beta\nu}\right)\right)_{,\alpha\beta}&=& (-g)\left(Ag^{\mu\nu}-a^{2 \mu\nu}-a^{1 \mu\nu}-Bg^{\mu\nu}+b^{1 \mu\nu}+b^{2 \mu\nu}\right)+...\\
+&=&(-g)\left(-a^{1 \mu\nu}-a^{2 \mu\nu}+b^{1 \mu\nu}+b^{2 \mu\nu}+\left(A-B\right)g^{\mu\nu}\right)+...
+\end{eqnarray*}
+und schließlich
+\begin{eqnarray*}
+t^{\mu\nu} &=& -\frac{1}{\kappa}G^{\mu\nu}+\frac{1}{2\kappa(-g)}\left((-g)\left(g^{\mu\nu}g^{\alpha\beta}-g^{\alpha\mu}g^{\beta\nu}\right)\right)_{,\alpha\beta}\\
+&=&-\frac{1}{2\kappa}\left(-a^{1 \mu\lambda}-a^{2 \mu\lambda}+b^{1 \mu\lambda}+b^{2\mu\lambda}+\left(A-B\right)g^{\mu\lambda}\right)\\
+&&+\frac{1}{2\kappa}\left(-a^{1 \mu\nu}-a^{2 \mu\nu}+b^{1 \mu\nu}+b^{2 \mu\nu}+\left(A-B\right)g^{\mu\nu}\right)+...\\
+&=& 0+...
+\end{eqnarray*}
+\end{paragraph}
+
+\begin{paragraph}{Divergenzfreiheit}
+Es gilt zu zeigen, dass
+\begin{eqnarray*}
+((-g)(t^{\mu\nu}+T^{\mu\nu}))_{,\mu}=0
+\end{eqnarray*}
+Wegen der Einsteinschen Feldgleichung $G^{\mu\nu}=\kappa T^{\mu\nu}$ erhalten wir
+\begin{eqnarray*}
+t^{\mu\nu}+T^{\mu\nu}=\frac{1}{2\kappa(-g)}\left((-g)\left(g^{\mu\nu}g^{\alpha\beta}-g^{\alpha\mu}g^{\beta\nu}\right)\right)_{,\alpha\beta}
+\end{eqnarray*}
+Wir müssen also zeigen, dass
+\begin{eqnarray}
+\label{div_free_expr}
+A^{\mu\nu} &=& (-g)(t^{\mu\nu}+T^{\mu\nu}) = \left((-g)\left(g^{\mu\nu}g^{\alpha\beta}-g^{\alpha\mu}g^{\beta\nu}\right)\right)_{,\alpha\beta}\\
+A^{\mu\nu}_{,\mu} &=& \left(\left((-g)\left(g^{\mu\nu}g^{\alpha\beta}-g^{\alpha\mu}g^{\beta\nu}\right)\right)_{,\alpha\beta}\right)_{,\mu}\\
+&=& \left((-g)\left(g^{\mu\nu}g^{\alpha\beta}-g^{\alpha\mu}g^{\beta\nu}\right)\right)_{,\alpha\beta\mu}=0
+\end{eqnarray}
+Dies lässt sich daran sehen, dass der Ausdruck in der innersten Klammer bezüglich $\beta$ und $\mu$ antisymmetrisch ist.
+\end{paragraph}
+
+\end{subsubsection}
+\begin{subsubsection}{Infinitesimale Koordinatentransformation}
+\begin{paragraph}{Transformations-Regeln}
+Wir betrachten eine Koordinatentransformation
+\begin{eqnarray*}
+x^\mu &\mapsto& y^\alpha(x)
+\end{eqnarray*}
+und die damit verbundenen Transformationen von Tensoren, im speziellen der Metrik $g_{\mu\nu}$. Wir bezeichnen
+die in den $y$-Koordinaten ausgedrückten Größen mit eine Tilde ($\tilde{g}_{\mu\nu}(y)...)$. Es muss gelten:
+\begin{eqnarray*}
+ds^2 &=& g_{\mu\nu}(x)dx^\mu dx^\nu=\tilde{g}_{\alpha\beta}(y(x))dy^\alpha dy^\beta
+\end{eqnarray*}
+wobei
+\begin{eqnarray*}
+dy^\alpha &=& \frac{\partial y^\alpha}{\partial x^\mu}dx^\mu
+\end{eqnarray*}
+also
+\begin{eqnarray*}
+ds^2 &=& g_{\mu\nu}(x)dx^\mu dx^\nu=\tilde{g}_{\alpha\beta}(y(x))\frac{\partial y^\alpha}{\partial x^\mu}(x)dx^\mu
+\frac{\partial y^\beta}{\partial x^\nu}(x)dx^\nu
+\end{eqnarray*}
+Für alle $dx$. Also muss
+\begin{eqnarray*}
+g_{\mu\nu}(x)=\tilde{g}_{\alpha\beta}(y(x))\frac{\partial y^\alpha}{\partial x^\mu}(x)
+\frac{\partial y^\beta}{\partial x^\nu}(x)
+\end{eqnarray*}
+gelten. Oder äquivalent dazu
+\begin{eqnarray}
+\label{g_transf}
+\tilde{g}_{\alpha\beta}(y)=g_{\mu\nu}(x(y))\frac{\partial x^\mu}{\partial y^\alpha}(y)
+\frac{\partial x^\nu}{\partial y^\beta}(y)
+\end{eqnarray}
+Die Transformations-Regeln für einen beliebigen Tensor $A^\mu_\nu(x)$ lauten entsprechend:
+\begin{eqnarray}
+\label{A_transf}
+\tilde{A}^\alpha_\beta(y)=A^\mu_\nu(x(y))\frac{\partial y^\alpha}{\partial x^\mu}(x(y))
+\frac{\partial x^\nu}{\partial y^\beta}(y)
+\end{eqnarray}
+Wir machen nun den Übergang zu einer infinitesimalen Transformation
+\begin{eqnarray*}
+y^\mu (x) &=& x^\mu+\xi^\mu(x)\\
+x^\mu (y) &=& y^\mu-\xi^\mu(y)
+\end{eqnarray*}
+Entsprechend geht \ref{g_transf} in
+\begin{eqnarray*}
+\tilde{g}_{\alpha\beta}(y)&=&g_{\mu\nu}(x(y))\frac{\partial x^\mu}{\partial y^\alpha}(y)
+\frac{\partial x^\nu}{\partial y^\beta}(y)\\
+&=&g_{\mu\nu}(y-\xi)(\delta^\mu_\alpha-\xi^\mu_{,\alpha})
+(\delta^\nu_\beta-\xi^\nu_{,\beta})\\
+&=&\left(g_{\mu\nu}(y)-g_{\mu\nu,\sigma}\xi^\sigma(y)\right)(\delta^\mu_\alpha-\xi^\mu_{,\alpha}(y))
+(\delta^\nu_\beta-\xi^\nu_{,\beta}(y))
+\end{eqnarray*}
+über. In erster Ordnung in $\xi$ wird daraus
+\begin{eqnarray*}
+\tilde{g}_{\alpha\beta}(y)&=&g_{\alpha\beta}(y)-g_{\alpha\beta,\sigma}(y)\xi^\sigma(y)
+-g_{\alpha\nu}(y)\xi^\nu_{,\beta}(y)
+-g_{\mu\beta}(y)\xi^\mu_{,\alpha}(y)
+\end{eqnarray*}
+Nun können wir $\delta g_{\alpha\beta}$ hinschreiben:
+\begin{eqnarray*}
+\delta g_{\alpha\beta}=\tilde{g}_{\alpha\beta}(y)-g_{\alpha\beta}(y)&=&-g_{\alpha\beta,\sigma}(y)\xi^\sigma(y)
+-g_{\alpha\nu}(y)\xi^\nu_{,\beta}(y)
+-g_{\mu\beta}(y)\xi^\mu_{,\alpha}(y)
+\end{eqnarray*}
+Die Tensor-Eigenschaft von $\delta g_{\alpha\beta}$ ist hier nicht direkt sichtbar. Wir können aber zeigen, dass
+\begin{eqnarray*}
+\delta g_{\alpha\beta}&=&
+-g_{\alpha\nu}(y)\xi^\nu_{;\beta}(y)
+-g_{\mu\beta}(y)\xi^\mu_{;\alpha}(y)
+\end{eqnarray*}
+gilt, woraus die Tensor-Eigenschaft direkt ersichtlich wird.
+\end{paragraph}
+\begin{proof}
+\begin{eqnarray*}
+\xi^\nu_{;\beta} &=& \xi^\nu_{,\beta}+\Gamma^\nu_{\beta\sigma}\xi^\sigma\\
+\xi^\nu_{,\beta} &=& \xi^\nu_{;\beta}-\Gamma^\nu_{\beta\sigma}\xi^\sigma\\
+g_{\alpha\nu}\xi^\nu_{,\beta} &=& g_{\alpha\nu}\xi^\nu_{;\beta}-\Gamma_{\beta\sigma\alpha}\xi^\sigma\\
+&=& g_{\alpha\nu}\xi^\nu_{;\beta}-\frac{1}{2}\left(g_{\alpha\sigma,\beta}+g_{\beta\alpha,\sigma}-g_{\beta\sigma,\alpha}\right)\xi^\sigma\\
+g_{\beta\mu}\xi^\mu_{,\alpha} &=&g_{\beta\mu}\xi^\mu_{;\alpha}-\frac{1}{2}\left(g_{\beta\sigma,\alpha}+g_{\beta\alpha,\sigma}-g_{\alpha\sigma,\beta}\right)\xi^\sigma\\
+g_{\alpha\nu}\xi^\nu_{,\beta}+g_{\beta\mu}\xi^\mu_{,\alpha} &=& g_{\alpha\nu}\xi^\nu_{;\beta}+g_{\beta\mu}\xi^\mu_{;\alpha}
+-g_{\beta\alpha,\sigma}\xi^\sigma\\
+\delta g_{\alpha\beta}&=&-g_{\alpha\nu}\xi^\nu_{;\beta}-g_{\beta\mu}\xi^\mu_{;\alpha}
+\end{eqnarray*}
+\qed
+\end{proof}
+\end{subsubsection}
+
+
+\end{subsection}
+\eeeccc
+
+\begin{appendix}
+\beginchap{Ausdrücke für den Ricci-Tensor und den Ricci-Skalar}
+\begin{subsection}{Der Ricci-Tensor}
+Der Krümmungstensor lautet
+\begin{eqnarray*}
+R^\alpha_{\mu\nu\lambda} &=& -\Gamma^\alpha_{\mu\nu,\lambda}+\Gamma^\alpha_{\beta\lambda}\Gamma^\beta_{\mu\nu}
++\Gamma^\alpha_{\mu\lambda,\nu}-\Gamma^\alpha_{\beta\nu}\Gamma^\beta_{\mu\lambda}
+\end{eqnarray*}
+woraus sich der Ricci-Tensor ergibt
+\begin{eqnarray*}
+R_{\mu\lambda} = R^\nu_{\mu\nu\lambda} &=& -\Gamma^\nu_{\mu\nu,\lambda}+\Gamma^\nu_{\beta\lambda}\Gamma^\beta_{\mu\nu}
++\Gamma^\nu_{\mu\lambda,\nu}-\Gamma^\nu_{\beta\nu}\Gamma^\beta_{\mu\lambda}
+\end{eqnarray*}
+Dabei lässt sich
+\begin{eqnarray*}
+\Gamma^\nu_{\mu\nu} &=& \frac{1}{2}g^{\alpha\beta}g_{\alpha\beta,\mu}\\
+\Gamma^\nu_{\mu\nu,\lambda} &=& \frac{1}{2}\left(g^{\alpha\beta}_{,\lambda}g_{\alpha\beta,\mu}+g^{\alpha\beta}g_{\alpha\beta,\mu\lambda}\right)\\
+&=& \frac{1}{2}\left(-g^{\alpha\sigma}g^{\beta\tau}g_{\sigma\tau_,\lambda}g_{\alpha\beta,\mu}+g^{\alpha\beta}g_{\alpha\beta,\mu\lambda}\right)
+\end{eqnarray*}
+benutzen:
+\begin{eqnarray*}
+R_{\mu\lambda} &=& -\frac{1}{2}\left(-g^{\sigma\alpha}g^{\tau\beta}g_{\sigma\tau_,\lambda}g_{\alpha\beta,\mu}+g^{\alpha\beta}g_{\alpha\beta,\mu\lambda}\right)+\Gamma^\nu_{\beta\lambda}\Gamma^\beta_{\mu\nu}
++\Gamma^\nu_{\mu\lambda,\nu}- \frac{1}{2}g^{\alpha\gamma}g_{\alpha\gamma,\beta}\Gamma^\beta_{\mu\lambda}
+\end{eqnarray*}
+Die Symmetrie von $R_{\mu\lambda}$ ist nun unmittelbar ablesbar.
+\end{subsection}
+
+
+\begin{subsection}{Der Ricci-Skalar}
+Der Ricci-Skalar entsteht durch eine weitere Kontraktion:
+\begin{eqnarray*}
+R = g^{\mu\lambda}R_{\mu\lambda} &=& g^{\mu\lambda}\left(-\frac{1}{2}\left(-g^{\sigma\alpha}g^{\tau\beta}g_{\sigma\tau_,\lambda}g_{\alpha\beta,\mu}+g^{\alpha\beta}g_{\alpha\beta,\mu\lambda}\right)+\Gamma^\nu_{\beta\lambda}\Gamma^\beta_{\mu\nu}
++\Gamma^\nu_{\mu\lambda,\nu}- \frac{1}{2}g^{\alpha\gamma}g_{\alpha\gamma,\beta}\Gamma^\beta_{\mu\lambda}\right)
+\end{eqnarray*}
+Eine genauere Betrachtung des obigen Ausdrucks zeigt, dass der Ricci-Skalar aus totalen Kontraktionen mittels $g^{\mu\nu}$ von zweiten Ableitungen $g_{\alpha\beta,\mu\nu}$ und Produkten der ersten Ableitungen $g_{\alpha\beta,\gamma}g_{\mu\nu,\tau}$ besteht. Für $g_{\alpha\beta,\mu\nu}$ gibt es nur zwei Möglichkeiten:
+\begin{eqnarray*}
+A &=& g^{\alpha\beta}g^{\mu\nu}g_{\alpha\beta,\mu\nu}\\
+B &=& g^{\alpha\mu}g^{\beta\nu}g_{\alpha\beta,\mu\nu}
+\end{eqnarray*}
+Für $g_{\alpha\beta,\gamma}g_{\mu\nu,\tau}$ gibt es zwei Gruppen. Die erste besteht aus drei Kontraktionen die alle beide Faktoren überspannen:
+\begin{eqnarray*}
+C &=& g^{\alpha\mu}g^{\beta\nu}g^{\gamma\tau}g_{\alpha\beta,\gamma}g_{\mu\nu,\tau}\\
+D &=& g^{\alpha\mu}g^{\beta\tau}g^{\gamma\nu}g_{\alpha\beta,\gamma}g_{\mu\nu,\tau}
+\end{eqnarray*}
+Für die zweite Gruppe wird je eine Kontraktion innerhalb der beiden Faktoren durchgeführt. Davon gibt es zwei:
+\begin{eqnarray*}
+\tilde{A}_\mu &=& g^{\alpha\beta}g_{\alpha\beta,\mu}\\
+\tilde{B}_\mu &=& g^{\alpha\beta}g_{\alpha\mu,\beta}
+\end{eqnarray*}
+und wir erhalten die verbleibenden drei totale Kontraktionen:
+\begin{eqnarray*}
+E &=& \tilde{A}_\mu\tilde{A}_\nu g^{\mu\nu}\\
+F &=& \tilde{A}_\mu\tilde{B}_\nu g^{\mu\nu}\\
+G &=& \tilde{B}_\mu\tilde{B}_\nu g^{\mu\nu}
+\end{eqnarray*}
+Für den ersten Term in Klammer erhalten wir
+\begin{eqnarray*}
+g^{\mu\lambda}\left(-\frac{1}{2}\left(-g^{\sigma\alpha}g^{\tau\beta}g_{\sigma\tau_,\lambda}g_{\alpha\beta,\mu}+g^{\alpha\beta}g_{\alpha\beta,\mu\lambda}\right)\right)
+&=& \frac{1}{2}\left(g^{\mu\lambda}g^{\sigma\alpha}g^{\tau\beta}g_{\sigma\tau_,\lambda}g_{\alpha\beta,\mu}-g^{\mu\lambda}g^{\alpha\beta}g_{\alpha\beta,\mu\lambda}\right)\\
+&=& \frac{1}{2}(C-A)
+\end{eqnarray*}
+Für den zweiten:
+\begin{eqnarray*}
+g^{\mu\lambda}\Gamma^\nu_{\beta\lambda}\Gamma^\beta_{\mu\nu}&=& g^{\mu\lambda}g^{\nu\tau}\Gamma_{\beta\lambda\tau}g^{\beta\sigma}\Gamma_{\mu\nu\sigma}\\
+&=& \frac{1}{4}g^{\mu\lambda}g^{\nu\tau}g^{\beta\sigma}\left(g_{\tau\lambda,\beta}+g_{\beta\tau,\lambda}-g_{\beta\lambda,\tau}\right)
+\left(g_{\sigma\nu,\mu}+g_{\mu\sigma,\nu}-g_{\mu\nu,\sigma}\right)\\
+&=& \frac{1}{4}\left(\left(D+D-C\right)+\left(C+D-D\right)-\left(D+C-D\right)\right)\\
+&=&  \frac{1}{2}D- \frac{1}{4}C
+\end{eqnarray*}
+Für den dritten:
+\begin{eqnarray*}
+g^{\mu\lambda}\Gamma^\nu_{\mu\lambda,\nu} &=& g^{\mu\lambda}\left(g^{\nu\sigma}\Gamma_{\mu\lambda\sigma}\right)_{,\nu}=g^{\mu\lambda}\left(g^{\nu\sigma}_{,\nu}\Gamma_{\mu\lambda\sigma}+g^{\nu\sigma}\Gamma_{\mu\lambda\sigma,\nu}\right)\\
+&=&g^{\mu\lambda}\left(g^{\nu\sigma}_{,\nu}\Gamma_{\mu\lambda\sigma}+g^{\nu\sigma}\Gamma_{\mu\lambda\sigma,\nu}\right)\\
+&=&g^{\mu\lambda}\left(-g^{\nu\alpha}g^{\sigma\beta}g_{\alpha\beta,\nu}\Gamma_{\mu\lambda\sigma}+g^{\nu\sigma}\Gamma_{\mu\lambda\sigma,\nu}\right)
+\end{eqnarray*}
+Wir werten die beiden Terme getrennt aus:
+\begin{eqnarray*}
+-g^{\mu\lambda}g^{\nu\alpha}g^{\sigma\beta}g_{\alpha\beta,\nu}\Gamma_{\mu\lambda\sigma} &=& -\frac{1}{2}g^{\mu\lambda}g^{\nu\alpha}g^{\sigma\beta}g_{\alpha\beta,\nu}\left(g_{\sigma\lambda,\mu}+g_{\mu\sigma,\lambda}-g_{\mu\lambda,\sigma}\right)\\
+&=&-\frac{1}{2}g^{\sigma\beta}\tilde{B}_\beta\left(2\tilde{B}_\sigma-\tilde{A}_\sigma\right)\\
+&=& -G+\frac{1}{2}F\\
+g^{\mu\lambda}g^{\nu\sigma}\Gamma_{\mu\lambda\sigma,\nu} &=& \frac{1}{2}g^{\mu\lambda}g^{\nu\sigma}\left(g_{\sigma\lambda,\mu\nu}+g_{\mu\sigma,\lambda\nu}-g_{\mu\lambda,\sigma\nu}\right)\\
+&=& B-\frac{1}{2}A
+\end{eqnarray*}
+Also ergibt der dritte Term schließlich:
+\begin{eqnarray*}
+g^{\mu\lambda}\Gamma^\nu_{\mu\lambda,\nu} &=& -G+B+\frac{1}{2}(F-A)
+\end{eqnarray*}
+Und nun noch der letzte Term:
+\begin{eqnarray*}
+- \frac{1}{2}g^{\mu\lambda}g^{\alpha\gamma}g_{\alpha\gamma,\beta}\Gamma^\beta_{\mu\lambda} &=& - \frac{1}{2}g^{\mu\lambda}g^{\alpha\gamma}g^{\beta\sigma}g_{\alpha\gamma,\beta}\Gamma_{\mu\lambda\sigma}\\
+&=& - \frac{1}{2}g^{\mu\lambda}g^{\beta\sigma}\tilde{A}_\beta\Gamma_{\mu\lambda\sigma}\\
+&=& - \frac{1}{4}g^{\beta\sigma}\tilde{A}_\beta g^{\mu\lambda}\left(g_{\sigma\lambda,\mu}+g_{\mu\sigma,\lambda}-g_{\mu\lambda,\sigma}\right)\\
+&=& - \frac{1}{4}g^{\beta\sigma}\tilde{A}_\beta \left(2\tilde{B}_\sigma-\tilde{A}_\sigma\right)\\
+&=& - \frac{1}{2}F+\frac{1}{4}E
+\end{eqnarray*}
+Und somit ergibt sich $R$ schließlich als
+\begin{eqnarray*}
+R &=& \frac{1}{2}(C-A)+\frac{1}{2}D- \frac{1}{4}C-G+B+\frac{1}{2}(F-A) - \frac{1}{2}F+\frac{1}{4}E\\
+&=& -A+B+\frac{1}{4}C+\frac{1}{2}D+\frac{1}{4}E-G
+\end{eqnarray*}
+\end{subsection}
+
+\begin{subsection}{Ricci-Tensor(2)}
+\label{tens2_terms}
+In analoger Weise lassen sich strukturgleiche Terme des Ricci-Tensors bestimmen. Diese können aus den obigen Termen hergeleitet werden:
+\begin{eqnarray*}
+A &=& g^{\alpha\beta}g^{\mu\nu}g_{\alpha\beta,\mu\nu}\\
+a^1_{\mu\lambda} &=& g^{\sigma\tau}g_{\mu\lambda,\sigma\tau}\\
+a^2_{\mu\lambda} &=& g^{\sigma\tau}g_{\sigma\tau,\mu\lambda}\\
+B &=& g^{\alpha\mu}g^{\beta\nu}g_{\alpha\beta,\mu\nu}\\
+b^1_{\mu\lambda} &=& g^{\sigma\tau}g_{\mu\sigma,\lambda\tau}\\
+b^2_{\mu\lambda} &=& g^{\sigma\tau}g_{\lambda\sigma,\mu\tau}=b^1_{\lambda\mu}\\
+C &=& g^{\alpha\mu}g^{\beta\nu}g^{\gamma\tau}g_{\alpha\beta,\gamma}g_{\mu\nu,\tau}\\
+c^1_{\mu\lambda} &=& g^{\beta\nu}g^{\gamma\tau}g_{\mu\beta,\gamma}g_{\lambda\nu,\tau}\\
+c^2_{\mu\lambda} &=& g^{\beta\nu}g^{\gamma\tau}g_{\gamma\beta,\mu}g_{\tau\nu,\lambda}\\
+D &=& g^{\alpha\mu}g^{\beta\tau}g^{\gamma\nu}g_{\alpha\beta,\gamma}g_{\mu\nu,\tau}\\
+d^1_{\mu\lambda} &=& g^{\beta\tau}g^{\gamma\nu}g_{\mu\beta,\gamma}g_{\lambda\nu,\tau}\\
+d^2_{\mu\lambda} &=& g^{\alpha\mu}g^{\gamma\nu}g_{\alpha\mu,\gamma}g_{\mu\nu,\lambda}\\
+d^3_{\mu\lambda} &=& g^{\alpha\mu}g^{\gamma\nu}g_{\alpha\lambda,\gamma}g_{\mu\nu,\mu}=d^2_{\lambda\mu}\\
+E &=& \tilde{A}_\mu\tilde{A}_\nu g^{\mu\nu}\\
+e^1_{\mu\lambda} &=& \tilde{A}_\mu\tilde{A}_\lambda\\
+e^2_{\mu\lambda} &=& g_{\mu\lambda,\sigma}g^{\sigma\tau}\tilde{A}_\tau\\
+F &=& \tilde{A}_\mu\tilde{B}_\nu g^{\mu\nu}\\
+f^1_{\mu\lambda} &=&  \tilde{A}_\mu\tilde{B}_\lambda\\
+f^2_{\mu\lambda} &=&  \tilde{A}_\lambda\tilde{B}_\mu=f^1_{\lambda\mu}\\
+f^3_{\mu\lambda} &=& g_{\mu\lambda,\sigma}g^{\sigma\tau}\tilde{B}_\tau\\
+f^4_{\mu\lambda} &=& g_{\mu\sigma,\lambda}g^{\sigma\tau}\tilde{A}_\tau\\
+f^5_{\mu\lambda} &=& g_{\lambda\sigma,\mu}g^{\sigma\tau}\tilde{A}_\tau=f^4_{\lambda\mu}\\
+G &=& \tilde{B}_\mu\tilde{B}_\nu g^{\mu\nu}\\
+g^1_{\mu\lambda} &=& \tilde{B}_\mu\tilde{B}_\lambda\\
+g^2_{\mu\lambda} &=& g_{\lambda\sigma,\mu}g^{\sigma\tau}\tilde{B}_\tau\\
+g^3_{\mu\lambda} &=& g_{\mu\sigma,\lambda}g^{\sigma\tau}\tilde{B}_\tau=g^2_{\lambda\mu}
+\end{eqnarray*}
+
+
+\end{subsection}
+
+\eeeccc
+\end{appendix}
+\end{document}
